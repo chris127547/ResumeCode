@@ -60,6 +60,8 @@
     </ApplicationDefinition>
     <Compile Include="RenderedObjects\BoxShape.cs" />
     <Compile Include="RenderedObjects\DrawingTestShape.cs" />
+    <Compile Include="RenderedObjects\FileToObjectConverters\PlyObject.cs" />
+    <Compile Include="RenderedObjects\PlyFileCube.cs" />
     <Compile Include="RenderedObjects\RenderedObject.cs" />
     <Compile Include="RenderedObjects\Square.cs" />
     <Compile Include="RenderedObjects\TexturedBox.cs" />
@@ -68,10 +70,12 @@
     <Compile Include="RenderingEngine\Engine.cs" />
     <Compile Include="RenderingEngine\GLErrorHelper.cs" />
     <Compile Include="RenderingEngine\ProgramList.cs" />
+    <Compile Include="RenderingEngine\Programs\ColorWithLightingButNoTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\ProgramCreatorHelper.cs" />
     <Compile Include="RenderingEngine\Programs\ShaderCodeDump.cs" />
     <Compile Include="RenderingEngine\Programs\SimpleColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\SimpleTextureProgram.cs" />
+    <Compile Include="RenderingEngine\Programs\TextureWithLightingButNoColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingProgram.cs" />
     <Compile Include="RenderingEngine\Textures\TextureManager.cs" />
     <Page Include="MainWindow.xaml">

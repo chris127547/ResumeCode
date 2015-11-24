@@ -1,4 +1,4 @@
-﻿using OpenGLEngine.Rendering_Engine;
+﻿using OpenGLEngine.RenderingEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;

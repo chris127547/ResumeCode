@@ -1,8 +1,9 @@
-﻿using OpenTK;
-using OpenTK.Graphics.OpenGL4;
+﻿using OpenGLEngine.RenderedObjects.FileToObjectConverters;
 using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Programs;
 using OpenGLEngine.RenderingEngine.Textures;
+using OpenTK;
+using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +12,31 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderedObjects
 {
-    class TexturedBoxWithLighting : RenderedObject
+    class PlyFileCube : RenderedObject
     {
         int shapeData;
         int indiceData;
         int textureID;
-        TextureWithLightingProgram program;
+        TextureWithLightingButNoColorProgram program;
+        //TextureWithLightingProgram program;
+        //ColorWithLightingButNoTextureProgram program;
         Camera camera;
 
-        public TexturedBoxWithLighting(Engine engine, float sizeX, float sizeY, float sizeZ, float[] color)
+        public PlyFileCube(Engine engine, float sizeX, float sizeY, float sizeZ, float[] color)
         {
             camera = engine.camera;
-            program = engine.programList.TextureWithLightingProgram;
+            program = engine.programList.TextureWithLightingButNoColorProgram;
 
-            float Xdim = 1 * sizeX, negXdim = -1 * sizeX;
+            /*float Xdim = 1 * sizeX, negXdim = -1 * sizeX;
             float Ydim = 1 * sizeY, negYdim = -1 * sizeY;
             float Zdim = 1 * sizeZ, negZdim = -1 * sizeZ;//note texture will be off slightly if size is non integer
             float Ux = Xdim + .5f, negUx = negXdim + .5f;
             float Uy = Zdim + .5f, negUy = negZdim + .5f;//note Y and Z values reversed here
             float Uz = Ydim + .5f, negUz = negYdim + .5f;
-            float r = color[0], g = color[1], b = color[2], a = color[3];
+            float r = color[0], g = color[1], b = color[2], a = color[3];*/
+                //currently not using these arguments maybe later
 
-            float[] cubedata = {
+            /*float[] cubedata = {
 					Xdim, negYdim, negZdim, 0,-1,0, r,g,b,a, Ux, negUy, 
 					Xdim, negYdim, Zdim, 0,-1,0, r,g,b,a, Ux, Uy, 
 					negXdim, negYdim, Zdim, 0,-1,0, r,g,b,a, negUx, Uy, 
@@ -59,6 +63,7 @@ namespace OpenGLEngine.RenderedObjects
 					negXdim, Ydim, negZdim, 0,0,-1, r,g,b,a, negUx, Uz,
 					
 			};
+
             short[] quadindicedata = {
 					0, 1, 2, 
 					0, 2, 3, 
@@ -72,15 +77,17 @@ namespace OpenGLEngine.RenderedObjects
 					16, 18, 19, 
 					20, 21, 22, 
 					20, 22, 23
-				};
+				};*/
+
+            PlyObject objectData = new PlyObject("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", color);
 
             shapeData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(cubedata.Length * sizeof(float)), cubedata, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(objectData.vertices.Length * sizeof(float)), objectData.vertices, BufferUsageHint.StaticDraw);
 
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(quadindicedata.Length * sizeof(ushort)), quadindicedata, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(objectData.indices.Length * sizeof(ushort)), objectData.indices, BufferUsageHint.StaticDraw);
 
             textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
         }
@@ -108,16 +115,16 @@ namespace OpenGLEngine.RenderedObjects
             GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);
 
             GL.EnableVertexAttribArray(program.positionHandle);
-            GL.VertexAttribPointer(program.positionHandle, 3, VertexAttribPointerType.Float, false, 48, 0);
+            GL.VertexAttribPointer(program.positionHandle, 3, VertexAttribPointerType.Float, false, 32, 0);
 
             GL.EnableVertexAttribArray(program.normalHandle);
-            GL.VertexAttribPointer(program.normalHandle, 3, VertexAttribPointerType.Float, false, 48, 12);
+            GL.VertexAttribPointer(program.normalHandle, 3, VertexAttribPointerType.Float, false, 32, 12);
 
-            GL.EnableVertexAttribArray(program.colorHandle);
-            GL.VertexAttribPointer(program.colorHandle, 4, VertexAttribPointerType.Float, false, 48, 24);
+            //GL.EnableVertexAttribArray(program.colorHandle);
+            //GL.VertexAttribPointer(program.colorHandle, 4, VertexAttribPointerType.Float, false, 40, 24);
 
             GL.EnableVertexAttribArray(program.textureHandle);
-            GL.VertexAttribPointer(program.textureHandle, 2, VertexAttribPointerType.Float, false, 48, 40);
+            GL.VertexAttribPointer(program.textureHandle, 2, VertexAttribPointerType.Float, false, 32, 24);
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
             GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedShort, (IntPtr)null);

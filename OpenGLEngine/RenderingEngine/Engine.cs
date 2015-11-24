@@ -2,14 +2,14 @@
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Input;
 using OpenGLEngine.RenderedObjects;
-using OpenGLEngine.Rendering_Engine.Programs;
+using OpenGLEngine.RenderingEngine.Programs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGLEngine.Rendering_Engine
+namespace OpenGLEngine.RenderingEngine
 {
     public class Engine
     {
@@ -50,7 +50,8 @@ namespace OpenGLEngine.Rendering_Engine
         {
             game.VSync = VSyncMode.On;
             program = new SimpleColorProgram();
-            renderedObjects.Add(new TexturedBoxWithLighting(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
+            renderedObjects.Add(new PlyFileCube(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
+            //renderedObjects.Add(new TexturedBoxWithLighting(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
             //renderedObjects.Add(new TexturedBox(this, 2, 2, 2, new float[] { 0.2f, 0.2f, 1, 0.8f }));
             //renderedObjects.Add(new BoxShape(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
             renderedObjects.Add(new Square(this));

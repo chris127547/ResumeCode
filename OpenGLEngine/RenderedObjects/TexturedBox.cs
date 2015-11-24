@@ -1,8 +1,8 @@
 ﻿using OpenTK;
 using OpenTK.Graphics.OpenGL4;
-using OpenGLEngine.Rendering_Engine;
-using OpenGLEngine.Rendering_Engine.Programs;
-using OpenGLEngine.Rendering_Engine.Textures;
+using OpenGLEngine.RenderingEngine;
+using OpenGLEngine.RenderingEngine.Programs;
+using OpenGLEngine.RenderingEngine.Textures;
 using System;
 using System.Collections.Generic;
 using System.Linq;

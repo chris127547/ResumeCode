@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderingEngine.Programs
 {
-    public class TextureWithLightingProgram
+    public class ColorWithLightingButNoTextureProgram
     {
         public int programHandle;
 
@@ -18,13 +18,12 @@ namespace OpenGLEngine.RenderingEngine.Programs
 
         public int positionHandle;
         public int normalHandle;
-        public int textureHandle;
         public int colorHandle;
 
-        public TextureWithLightingProgram()
+        public ColorWithLightingButNoTextureProgram()
         {
-            int vertexShader = ProgramCreatorHelper.CreateShader(ShaderType.VertexShader, ShaderCodeDump.GetTextureAndLightingVertexShader());
-            int fragmentShader = ProgramCreatorHelper.CreateShader(ShaderType.FragmentShader, ShaderCodeDump.GetTextureAndLightingFragmentShader());
+            int vertexShader = ProgramCreatorHelper.CreateShader(ShaderType.VertexShader, ShaderCodeDump.GetColorAndLightingButNoTextureVertexShader());
+            int fragmentShader = ProgramCreatorHelper.CreateShader(ShaderType.FragmentShader, ShaderCodeDump.GetColorAndLightingButNoTextureFragmentShader());
             programHandle = ProgramCreatorHelper.CreateProgram(vertexShader, fragmentShader);
             MVPMatrixHandle = GL.GetUniformLocation(programHandle, "u_MVPMatrix");
             modelMatrixHandle = GL.GetUniformLocation(programHandle, "u_ModelMatrix");
@@ -33,7 +32,6 @@ namespace OpenGLEngine.RenderingEngine.Programs
 
             positionHandle = GL.GetAttribLocation(programHandle, "a_position");
             colorHandle = GL.GetAttribLocation(programHandle, "a_color");
-            textureHandle = GL.GetAttribLocation(programHandle, "a_texcord");
             normalHandle = GL.GetAttribLocation(programHandle, "a_normal");
         }
     }

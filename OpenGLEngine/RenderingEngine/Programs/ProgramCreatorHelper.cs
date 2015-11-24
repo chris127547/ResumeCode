@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGLEngine.Rendering_Engine.Programs
+namespace OpenGLEngine.RenderingEngine.Programs
 {
     static class ProgramCreatorHelper
     {

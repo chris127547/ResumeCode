@@ -1,11 +1,11 @@
-﻿using OpenGLEngine.Rendering_Engine.Programs;
+﻿using OpenGLEngine.RenderingEngine.Programs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGLEngine.Rendering_Engine
+namespace OpenGLEngine.RenderingEngine
 {
     public class ProgramList
     {
@@ -36,6 +36,26 @@ namespace OpenGLEngine.Rendering_Engine
             {
                 if (textureWithLightingProgram == null) { textureWithLightingProgram = new TextureWithLightingProgram(); }
                 return textureWithLightingProgram;
+            }
+        }
+
+        private TextureWithLightingButNoColorProgram textureWithLightingButNoColorProgram;
+        public TextureWithLightingButNoColorProgram TextureWithLightingButNoColorProgram
+        {
+            get
+            {
+                if (textureWithLightingButNoColorProgram == null) { textureWithLightingButNoColorProgram = new TextureWithLightingButNoColorProgram(); }
+                return textureWithLightingButNoColorProgram;
+            }
+        }
+
+        private ColorWithLightingButNoTextureProgram colorWithLightingButNoTextureProgram;
+        public ColorWithLightingButNoTextureProgram ColorWithLightingButNoTextureProgram
+        {
+            get
+            {
+                if (colorWithLightingButNoTextureProgram == null) { colorWithLightingButNoTextureProgram = new ColorWithLightingButNoTextureProgram(); }
+                return colorWithLightingButNoTextureProgram;
             }
         }
     }

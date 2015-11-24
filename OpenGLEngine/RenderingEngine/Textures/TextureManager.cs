@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGLEngine.Rendering_Engine.Textures
+namespace OpenGLEngine.RenderingEngine.Textures
 {
     public class TextureManager
     {
