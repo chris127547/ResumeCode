@@ -50,7 +50,8 @@ namespace OpenGLEngine.RenderingEngine
         {
             game.VSync = VSyncMode.On;
             program = new SimpleColorProgram();
-            renderedObjects.Add(new PlyFileCube(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
+            renderedObjects.Add(new PlyFileCube(this, new float[] { 1, 0.5f, 0, 1 }, Enums.RenderingStyle.ColorAndLightingWithNoTextures));
+            //renderedObjects.Add(new PlyFileCube(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
             //renderedObjects.Add(new TexturedBoxWithLighting(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
             //renderedObjects.Add(new TexturedBox(this, 2, 2, 2, new float[] { 0.2f, 0.2f, 1, 0.8f }));
             //renderedObjects.Add(new BoxShape(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));

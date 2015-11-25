@@ -68,6 +68,7 @@
     <Compile Include="RenderedObjects\TexturedBoxWithLighting.cs" />
     <Compile Include="RenderingEngine\Camera.cs" />
     <Compile Include="RenderingEngine\Engine.cs" />
+    <Compile Include="RenderingEngine\Enums\RenderingStyles.cs" />
     <Compile Include="RenderingEngine\GLErrorHelper.cs" />
     <Compile Include="RenderingEngine\ProgramList.cs" />
     <Compile Include="RenderingEngine\Programs\ColorWithLightingButNoTextureProgram.cs" />
@@ -77,6 +78,9 @@
     <Compile Include="RenderingEngine\Programs\SimpleTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingButNoColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingProgram.cs" />
+    <Compile Include="RenderingEngine\Renderers\LightingAndColorRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\LightingAndTextureRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\Renderer.cs" />
     <Compile Include="RenderingEngine\Textures\TextureManager.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

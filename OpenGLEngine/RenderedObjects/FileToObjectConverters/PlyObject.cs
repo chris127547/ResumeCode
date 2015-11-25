@@ -44,7 +44,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     }
                     if (rgba != null)
                     {
-                        //verticeList.Add(rgba[0]); verticeList.Add(rgba[1]); verticeList.Add(rgba[2]); verticeList.Add(rgba[3]);
+                        verticeList.Add(rgba[0]); verticeList.Add(rgba[1]); verticeList.Add(rgba[2]); verticeList.Add(rgba[3]);
                     }
                 }
                 vertices = verticeList.ToArray<float>();
