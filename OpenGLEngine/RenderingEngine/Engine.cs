@@ -14,10 +14,10 @@ namespace OpenGLEngine.RenderingEngine
     public class Engine
     {
         GameWindow game = null;
-        SimpleColorProgram program = null;
         public Camera camera;
         public List<RenderedObject> renderedObjects;
         public ProgramList programList;
+        public float[] clearColor = new float[]{1, 1, 1, 1};
         public Engine()
         {
             game = new GameWindow();
@@ -49,14 +49,13 @@ namespace OpenGLEngine.RenderingEngine
         private void OnGameLoad(object sender, EventArgs e)
         {
             game.VSync = VSyncMode.On;
-            program = new SimpleColorProgram();
-            renderedObjects.Add(new PlyFileCube(this, new float[] { 1, 0.5f, 0, 1 }, Enums.RenderingStyle.ColorAndLightingWithNoTextures));
+            //renderedObjects.Add(new PlyFileCube(this, new float[] { 1, 0.5f, 0, 1 }, Enums.RenderingStyle.ColorAndLightingWithNoTextures));
             //renderedObjects.Add(new PlyFileCube(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
             //renderedObjects.Add(new TexturedBoxWithLighting(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
             //renderedObjects.Add(new TexturedBox(this, 2, 2, 2, new float[] { 0.2f, 0.2f, 1, 0.8f }));
             //renderedObjects.Add(new BoxShape(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
-            renderedObjects.Add(new Square(this));
-            renderedObjects.Add(new DrawingTestShape(this));
+            //renderedObjects.Add(new Square(this));
+            //renderedObjects.Add(new DrawingTestShape(this));
         }
         private void OnResize(object sender, EventArgs e)
         {
@@ -108,7 +107,7 @@ namespace OpenGLEngine.RenderingEngine
         private void onRenderFrame(object sender, EventArgs e)
         {
 
-            GL.ClearColor(255f, 0, 150f, 255f);
+            GL.ClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             for (int i = 0; i < renderedObjects.Count; i++)
