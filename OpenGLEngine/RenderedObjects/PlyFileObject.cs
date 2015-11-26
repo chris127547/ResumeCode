@@ -1,10 +1,8 @@
 ﻿using OpenGLEngine.RenderedObjects.FileToObjectConverters;
 using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Enums;
-using OpenGLEngine.RenderingEngine.Programs;
 using OpenGLEngine.RenderingEngine.Renderers;
 using OpenGLEngine.RenderingEngine.Textures;
-using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
@@ -14,23 +12,35 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderedObjects
 {
-    public class PlyFileCube : RenderedObject
+    public class PlyFileObject : RenderedObject
     {
         int shapeData;
         int indiceData;
         int textureID;
         Renderer renderer;
 
-        public PlyFileCube(Engine engine, float[] color, RenderingStyle style)
+        public PlyFileObject(Engine engine, float[] color, RenderingStyle style)
+        {
+            new PlyFileObject(engine, color, style, null);
+        }
+
+        public PlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
         {
             PlyFileParser objectData;
-            if (style == RenderingStyle.ColorAndLightingWithNoTextures)
+            if (filepath == null)
             {
-                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply", color);
+                if (style == RenderingStyle.ColorAndLightingWithNoTextures)
+                {
+                    objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply", color);
+                }
+                else
+                {
+                    objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", null);
+                }
             }
             else
             {
-                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", null);
+                objectData = new PlyFileParser(filepath, color);
             }
 
             shapeData = GL.GenBuffer();
@@ -40,7 +50,7 @@ namespace OpenGLEngine.RenderedObjects
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
             GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(objectData.indices.Length * sizeof(ushort)), objectData.indices, BufferUsageHint.StaticDraw);
-
+            
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
             {
                 textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");

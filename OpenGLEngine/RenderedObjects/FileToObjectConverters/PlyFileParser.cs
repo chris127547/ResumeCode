@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
 {
-    public class PlyObject
+    public class PlyFileParser
     {
         public float[] vertices;
         public ushort[] indices;
 
-        public PlyObject(string filepath, float[] rgba)
+        public PlyFileParser(string filepath, float[] rgba)
         {
             if (File.Exists(filepath))
             {

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderedObjects
 {
-    class Square : RenderedObject
+    public class Square : RenderedObject
     {
         public int squareData;
         private SimpleColorProgram program;

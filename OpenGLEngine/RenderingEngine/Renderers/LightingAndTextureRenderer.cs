@@ -13,13 +13,14 @@ namespace OpenGLEngine.RenderingEngine.Renderers
     {
         int shapeData;
         int indiceData;
+        int triangleCount;
         int textureID;
         TextureWithLightingButNoColorProgram program;
         Camera camera;
 
-        public LightingAndTextureRenderer(int shapeData, int indiceData, int textureID, Engine engine)
+        public LightingAndTextureRenderer(int shapeData, int indiceData, int textureID, int triangleCount, Engine engine)
         {
-            this.shapeData = shapeData; this.textureID = textureID; this.indiceData = indiceData;
+            this.shapeData = shapeData; this.textureID = textureID; this.indiceData = indiceData; this.triangleCount = triangleCount;
             this.camera = engine.camera; program = engine.programList.TextureWithLightingButNoColorProgram;
         }
 
@@ -55,7 +56,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GL.VertexAttribPointer(program.textureHandle, 2, VertexAttribPointerType.Float, false, 32, 24);
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedShort, (IntPtr)null);
+            GL.DrawElements(PrimitiveType.Triangles, triangleCount, DrawElementsType.UnsignedShort, (IntPtr)null);
             GLErrorHelper.CheckError();
         }
     }

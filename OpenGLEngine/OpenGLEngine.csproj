@@ -59,8 +59,9 @@
   <ItemGroup>
     <Compile Include="RenderedObjects\BoxShape.cs" />
     <Compile Include="RenderedObjects\DrawingTestShape.cs" />
-    <Compile Include="RenderedObjects\FileToObjectConverters\PlyObject.cs" />
+    <Compile Include="RenderedObjects\FileToObjectConverters\PlyFileParser.cs" />
     <Compile Include="RenderedObjects\PlyFileCube.cs" />
+    <Compile Include="RenderedObjects\PlyFileObject.cs" />
     <Compile Include="RenderedObjects\RenderedObject.cs" />
     <Compile Include="RenderedObjects\Square.cs" />
     <Compile Include="RenderedObjects\TexturedBox.cs" />
