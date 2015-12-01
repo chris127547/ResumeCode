@@ -26,7 +26,13 @@ namespace OpenGLEngine.RenderingEngine.Renderers
 
         public void Render()
         {
-            Matrix4 model = Matrix4.Identity;
+            Render(Matrix4.Identity);
+        }
+
+
+        public void Render(Matrix4 modelMatrix)
+        {
+            Matrix4 model = modelMatrix;
             model = model * Matrix4.CreateTranslation(1, 1, -30);
             Matrix4 MVP = (model * camera.ViewMatrix) * camera.ProjectionMatrix;
             Matrix3 normalModel = new Matrix3(Matrix4.Transpose(Matrix4.Invert(model)));
@@ -51,7 +57,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
 
             GL.EnableVertexAttribArray(program.normalHandle);
             GL.VertexAttribPointer(program.normalHandle, 3, VertexAttribPointerType.Float, false, 32, 12);
-            
+
             GL.EnableVertexAttribArray(program.textureHandle);
             GL.VertexAttribPointer(program.textureHandle, 2, VertexAttribPointerType.Float, false, 32, 24);
 

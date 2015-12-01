@@ -27,8 +27,13 @@ namespace OpenGLEngine.RenderingEngine.Renderers
 
         public void Render()
         {
-            Matrix4 model = Matrix4.Identity;
-            model = model * Matrix4.CreateTranslation(1, 1, -30);
+            Render(Matrix4.Identity);
+        }
+
+
+        public void Render(Matrix4 modelMatrix)
+        {
+            Matrix4 model = modelMatrix;
             Matrix4 MVP = (model * camera.ViewMatrix) * camera.ProjectionMatrix;
             Matrix3 normalModel = new Matrix3(Matrix4.Transpose(Matrix4.Invert(model)));
             GLErrorHelper.CheckError();
@@ -55,7 +60,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
 
             GL.EnableVertexAttribArray(program.colorHandle);
             GL.VertexAttribPointer(program.colorHandle, 4, VertexAttribPointerType.Float, false, 40, 24);
-            
+
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
             GL.DrawElements(PrimitiveType.Triangles, triangleCount, DrawElementsType.UnsignedShort, (IntPtr)null);
             GLErrorHelper.CheckError();
