@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderingEngine.Renderers
 {
-    interface Renderer
+    public interface Renderer
     {
         void Render();
     }

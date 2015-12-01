@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderingEngine.Renderers
 {
-    class LightingAndColorRenderer : Renderer
+    public class LightingAndColorRenderer : Renderer
     {
         int shapeData;
         int indiceData;
