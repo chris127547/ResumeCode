@@ -10,8 +10,9 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
 {
     public class PlyFileParser
     {
-        public float[] vertices;
+        //public float[] verticess;
         public ushort[] indices;
+        public VertexList vertices;
 
         public PlyFileParser(string filepath, float[] rgba)
         {
@@ -23,31 +24,39 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     throw new Exception("An invalid file type was used to construct a PlyObject. Only correctly formatted .ply files will work.");
                 }
                 int numberOfVertices = 0, numberOfFaces = 0, index = 1;
+                bool readingVertexProperties = false;
+                List<string> vertexProperties = new List<string>();
                 while (lines[index] != "end_header")
                 {
                     string[] items = lines[index].Split(' ');
                     if (items[0] == "element")
                     {
-                        if (items[1] == "vertex") { numberOfVertices = Int32.Parse(items[2]); }
+                        readingVertexProperties = false;
+                        if (items[1] == "vertex") { numberOfVertices = Int32.Parse(items[2]); readingVertexProperties = true; }
                         else if (items[1] == "face") { numberOfFaces = Int32.Parse(items[2]); }
+                    }
+                    else if (readingVertexProperties && items[0] == "property")
+                    {
+                        vertexProperties.Add(items[2]);
                     }
                     index++;
                 }
-                index++;                
-                List<float> verticeList = new List<float>();
+                index++;
+                vertices = new VertexList();
                 for (int i = 0; i < numberOfVertices; i++)
                 {
+                    Vertex vertex = new Vertex();
                     string[] values = lines[index + i].Split(' ');
                     for (int j = 0; j < values.Length; j++)
                     {
-                        verticeList.Add(float.Parse(values[j]));
+                        vertex.AddValue(vertexProperties[j], float.Parse(values[j]));
                     }
                     if (rgba != null)
                     {
-                        verticeList.Add(rgba[0]); verticeList.Add(rgba[1]); verticeList.Add(rgba[2]); verticeList.Add(rgba[3]);
+                        vertex.AddColor(rgba);
                     }
+                    vertices.Add(vertex);
                 }
-                vertices = verticeList.ToArray<float>();
                 index = index + numberOfVertices;
                 List<ushort> indiceList = new List<ushort>();
                 for (int i = 0; i < numberOfFaces; i++)

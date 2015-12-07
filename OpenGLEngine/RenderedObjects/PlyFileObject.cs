@@ -43,9 +43,11 @@ namespace OpenGLEngine.RenderedObjects
                 objectData = new PlyFileParser(filepath, color);
             }
 
+            float[] vertices = objectData.vertices.GetAvailableShapeData();
+
             shapeData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(objectData.vertices.Length * sizeof(float)), objectData.vertices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertices.Length * sizeof(float)), vertices, BufferUsageHint.StaticDraw);
 
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);

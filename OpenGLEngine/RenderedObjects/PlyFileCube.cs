@@ -33,9 +33,11 @@ namespace OpenGLEngine.RenderedObjects
                 objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", null);
             }
 
+            float[] vertices = objectData.vertices.GetAvailableShapeData();
+
             shapeData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(objectData.vertices.Length * sizeof(float)), objectData.vertices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertices.Length * sizeof(float)), vertices, BufferUsageHint.StaticDraw);
 
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
