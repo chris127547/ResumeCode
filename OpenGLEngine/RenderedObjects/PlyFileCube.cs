@@ -19,6 +19,8 @@ namespace OpenGLEngine.RenderedObjects
         int shapeData;
         int indiceData;
         int textureID;
+        public VertexList vertices;
+        public ushort[] indices;
         Renderer renderer;
 
         public PlyFileCube(Engine engine, float[] color, RenderingStyle style)
@@ -32,6 +34,9 @@ namespace OpenGLEngine.RenderedObjects
             {
                 objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", null);
             }
+
+            this.vertices = objectData.vertices;
+            this.indices = objectData.indices;
 
             float[] vertices = objectData.vertices.GetAvailableShapeData();
 

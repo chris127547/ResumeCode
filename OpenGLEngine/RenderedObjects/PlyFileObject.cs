@@ -17,6 +17,8 @@ namespace OpenGLEngine.RenderedObjects
         int shapeData;
         int indiceData;
         int textureID;
+        public VertexList vertices;
+        public ushort[] indices;
         Renderer renderer;
 
         public PlyFileObject(Engine engine, float[] color, RenderingStyle style)
@@ -43,6 +45,8 @@ namespace OpenGLEngine.RenderedObjects
                 objectData = new PlyFileParser(filepath, color);
             }
 
+            this.vertices = objectData.vertices;
+            this.indices = objectData.indices;
             float[] vertices = objectData.vertices.GetAvailableShapeData();
 
             shapeData = GL.GenBuffer();
