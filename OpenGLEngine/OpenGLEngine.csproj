@@ -74,6 +74,7 @@
     <Compile Include="RenderingEngine\Engine.cs" />
     <Compile Include="RenderingEngine\Enums\RenderingStyles.cs" />
     <Compile Include="RenderingEngine\GLErrorHelper.cs" />
+    <Compile Include="RenderingEngine\Light.cs" />
     <Compile Include="RenderingEngine\ProgramList.cs" />
     <Compile Include="RenderingEngine\Programs\ColorWithLightingButNoTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\ProgramCreatorHelper.cs" />

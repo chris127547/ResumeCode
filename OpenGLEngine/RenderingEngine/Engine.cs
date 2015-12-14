@@ -15,6 +15,7 @@ namespace OpenGLEngine.RenderingEngine
     {
         GameWindow game = null;
         public Camera camera;
+        public Light light;
         public List<RenderedObject> renderedObjects;
         public ProgramList programList;
         public float[] clearColor = new float[]{1, 1, 1, 1};
@@ -22,6 +23,7 @@ namespace OpenGLEngine.RenderingEngine
         {
             game = new GameWindow();
             camera = new Camera();
+            light = new Light(5, 25, 30);
             renderedObjects = new List<RenderedObject>();
             programList = new ProgramList();
 
