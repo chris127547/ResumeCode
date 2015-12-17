@@ -83,6 +83,7 @@
     <Compile Include="RenderingEngine\Programs\SimpleTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingButNoColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingProgram.cs" />
+    <Compile Include="RenderingEngine\Renderers\ColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\LightingAndColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\LightingAndTextureRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\Renderer.cs" />

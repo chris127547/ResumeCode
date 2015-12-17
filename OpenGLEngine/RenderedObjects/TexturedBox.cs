@@ -114,5 +114,11 @@ namespace OpenGLEngine.RenderedObjects
             GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedShort, (IntPtr)null);
             GLErrorHelper.CheckError();
         }
+
+
+        public void UpdateMesh(FileToObjectConverters.VertexList vertices, ushort[] indices)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

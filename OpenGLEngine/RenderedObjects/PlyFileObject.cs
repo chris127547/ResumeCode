@@ -45,7 +45,7 @@ namespace OpenGLEngine.RenderedObjects
                 objectData = new PlyFileParser(filepath, color);
             }
 
-            this.vertices = objectData.vertices;
+            /*this.vertices = objectData.vertices;
             this.indices = objectData.indices;
             float[] vertices = objectData.vertices.GetAvailableShapeData();
 
@@ -56,7 +56,9 @@ namespace OpenGLEngine.RenderedObjects
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
             GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(objectData.indices.Length * sizeof(ushort)), objectData.indices, BufferUsageHint.StaticDraw);
-            
+            */
+            UpdateMesh(objectData.vertices, objectData.indices);
+
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
             {
                 textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
@@ -71,6 +73,22 @@ namespace OpenGLEngine.RenderedObjects
         public void Render()
         {
             renderer.Render();
+        }
+
+
+        public void UpdateMesh(VertexList vertexList, ushort[] indices)
+        {
+            this.vertices = vertexList;
+            this.indices = indices;
+            float[] vertices = vertexList.GetAvailableShapeData();
+
+            shapeData = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);
+            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertices.Length * sizeof(float)), vertices, BufferUsageHint.StaticDraw);
+
+            indiceData = GL.GenBuffer();
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indices.Length * sizeof(ushort)), indices, BufferUsageHint.StaticDraw);
         }
     }
 }

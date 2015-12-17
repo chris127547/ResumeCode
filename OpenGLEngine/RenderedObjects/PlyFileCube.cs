@@ -63,5 +63,11 @@ namespace OpenGLEngine.RenderedObjects
         {
             renderer.Render();
         }
+
+
+        public void UpdateMesh(VertexList vertices, ushort[] indices)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

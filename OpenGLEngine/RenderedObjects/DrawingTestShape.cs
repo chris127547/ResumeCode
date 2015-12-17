@@ -62,5 +62,11 @@ namespace OpenGLEngine.RenderedObjects
             GL.DisableVertexAttribArray(1);
             GLErrorHelper.CheckError();
         }
+
+
+        public void UpdateMesh(FileToObjectConverters.VertexList vertices, ushort[] indices)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
