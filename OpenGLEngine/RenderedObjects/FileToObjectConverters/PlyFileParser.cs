@@ -11,7 +11,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
     public class PlyFileParser
     {
         //public float[] verticess;
-        public ushort[] indices;
+        public int[] indices;
         public VertexList vertices;
 
         public PlyFileParser(string filepath, float[] rgba)
@@ -58,21 +58,21 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     vertices.Add(vertex);
                 }
                 index = index + numberOfVertices;
-                List<ushort> indiceList = new List<ushort>();
+                List<int> indiceList = new List<int>();
                 for (int i = 0; i < numberOfFaces; i++)
                 {
                     string[] values = lines[index + i].Split(' ');
-                    indiceList.Add(ushort.Parse(values[1]));
-                    indiceList.Add(ushort.Parse(values[2]));
-                    indiceList.Add(ushort.Parse(values[3]));
+                    indiceList.Add(int.Parse(values[1]));
+                    indiceList.Add(int.Parse(values[2]));
+                    indiceList.Add(int.Parse(values[3]));
                     if (values.Length > 4)
                     {
-                        indiceList.Add(ushort.Parse(values[1]));
-                        indiceList.Add(ushort.Parse(values[3]));
-                        indiceList.Add(ushort.Parse(values[4]));
+                        indiceList.Add(int.Parse(values[1]));
+                        indiceList.Add(int.Parse(values[3]));
+                        indiceList.Add(int.Parse(values[4]));
                     }
                 }
-                indices = indiceList.ToArray<ushort>();
+                indices = indiceList.ToArray<int>();
             }
         }
     }

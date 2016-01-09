@@ -47,7 +47,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GLErrorHelper.CheckError();
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.DrawElements(PrimitiveType.Triangles, triangleCount, DrawElementsType.UnsignedShort, (IntPtr)null);
+            GL.DrawElements(PrimitiveType.Triangles, triangleCount, DrawElementsType.UnsignedInt, (IntPtr)null);
             GLErrorHelper.CheckError();
 
         }

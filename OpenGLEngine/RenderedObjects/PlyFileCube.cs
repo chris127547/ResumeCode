@@ -20,7 +20,7 @@ namespace OpenGLEngine.RenderedObjects
         int indiceData;
         int textureID;
         public VertexList vertices;
-        public ushort[] indices;
+        public int[] indices;
         Renderer renderer;
 
         public PlyFileCube(Engine engine, float[] color, RenderingStyle style)
@@ -46,7 +46,7 @@ namespace OpenGLEngine.RenderedObjects
 
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(objectData.indices.Length * sizeof(ushort)), objectData.indices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(objectData.indices.Length * sizeof(int)), objectData.indices, BufferUsageHint.StaticDraw);
 
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
             {
@@ -65,7 +65,7 @@ namespace OpenGLEngine.RenderedObjects
         }
 
 
-        public void UpdateMesh(VertexList vertices, ushort[] indices)
+        public void UpdateMesh(VertexList vertices, int[] indices)
         {
             throw new NotImplementedException();
         }

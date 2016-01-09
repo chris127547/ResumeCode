@@ -52,14 +52,14 @@ namespace OpenGLEngine.RenderedObjects
             GL.VertexAttribPointer(program.colorHandle, 4, VertexAttribPointerType.Float, false, 28, 12);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 6);
             //GL.BindBuffer(BufferTarget.ElementArrayBuffer, quadindicedata);
-            //GL.DrawElements(PrimitiveType.Quads, 36, DrawElementsType.UnsignedShort, (IntPtr)quadindicedata);
+            //GL.DrawElements(PrimitiveType.Quads, 36, DrawElementsType.UnsignedInt, (IntPtr)quadindicedata);
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1);
             GLErrorHelper.CheckError();
         }
 
 
-        public void UpdateMesh(FileToObjectConverters.VertexList vertices, ushort[] indices)
+        public void UpdateMesh(FileToObjectConverters.VertexList vertices, int[] indices)
         {
             throw new NotImplementedException();
         }

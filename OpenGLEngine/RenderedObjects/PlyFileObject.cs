@@ -3,6 +3,7 @@ using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Enums;
 using OpenGLEngine.RenderingEngine.Renderers;
 using OpenGLEngine.RenderingEngine.Textures;
+using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace OpenGLEngine.RenderedObjects
         int indiceData;
         int textureID;
         public VertexList vertices;
-        public ushort[] indices;
+        public int[] indices;
         Renderer renderer;
 
         public PlyFileObject(Engine engine, float[] color, RenderingStyle style)
@@ -55,7 +56,7 @@ namespace OpenGLEngine.RenderedObjects
 
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(objectData.indices.Length * sizeof(ushort)), objectData.indices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(objectData.indices.Length * sizeof(int)), objectData.indices, BufferUsageHint.StaticDraw);
             */
             UpdateMesh(objectData.vertices, objectData.indices);
 
@@ -75,8 +76,13 @@ namespace OpenGLEngine.RenderedObjects
             renderer.Render();
         }
 
+        public void Render(Matrix4 modelMatrix)
+        {
+            renderer.Render(modelMatrix);
+        }
 
-        public void UpdateMesh(VertexList vertexList, ushort[] indices)
+
+        public void UpdateMesh(VertexList vertexList, int[] indices)
         {
             this.vertices = vertexList;
             this.indices = indices;
@@ -88,7 +94,7 @@ namespace OpenGLEngine.RenderedObjects
 
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indices.Length * sizeof(ushort)), indices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indices.Length * sizeof(int)), indices, BufferUsageHint.StaticDraw);
         }
     }
 }

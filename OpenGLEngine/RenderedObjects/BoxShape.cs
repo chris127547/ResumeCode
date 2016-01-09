@@ -71,7 +71,7 @@ namespace OpenGLEngine.RenderedObjects
 
             quadindicedata = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, quadindicedata);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(tquadindicedata.Length * sizeof(ushort)), tquadindicedata, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(tquadindicedata.Length * sizeof(int)), tquadindicedata, BufferUsageHint.StaticDraw);
 
         }
 
@@ -94,11 +94,11 @@ namespace OpenGLEngine.RenderedObjects
             GL.VertexAttribPointer(program.colorHandle, 4, VertexAttribPointerType.Float, false, 28, 12);
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, quadindicedata);
-            GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedShort, (IntPtr)null);
+            GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedInt, (IntPtr)null);
         }
 
 
-        public void UpdateMesh(FileToObjectConverters.VertexList vertices, ushort[] indices)
+        public void UpdateMesh(FileToObjectConverters.VertexList vertices, int[] indices)
         {
             throw new NotImplementedException();
         }

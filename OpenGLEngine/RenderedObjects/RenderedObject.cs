@@ -11,6 +11,6 @@ namespace OpenGLEngine.RenderedObjects
     {
         void Render();
 
-        void UpdateMesh(VertexList vertexList, ushort[] indices);
+        void UpdateMesh(VertexList vertexList, int[] indices);
     }
 }

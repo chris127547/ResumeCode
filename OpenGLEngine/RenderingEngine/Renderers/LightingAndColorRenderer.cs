@@ -63,7 +63,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GL.VertexAttribPointer(program.colorHandle, 4, VertexAttribPointerType.Float, false, 40, 24);
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.DrawElements(PrimitiveType.Triangles, triangleCount, DrawElementsType.UnsignedShort, (IntPtr)null);
+            GL.DrawElements(PrimitiveType.Triangles, triangleCount, DrawElementsType.UnsignedInt, (IntPtr)null);
             GLErrorHelper.CheckError();
         }
     }

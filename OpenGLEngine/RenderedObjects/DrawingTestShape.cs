@@ -37,7 +37,7 @@ namespace OpenGLEngine.RenderedObjects
 
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indices.Length * sizeof(ushort)), indices, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indices.Length * sizeof(int)), indices, BufferUsageHint.StaticDraw);
         }
 
         public void Render()
@@ -57,14 +57,14 @@ namespace OpenGLEngine.RenderedObjects
             GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);
             GL.VertexAttribPointer(program.colorHandle, 4, VertexAttribPointerType.Float, false, 28, 12);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.DrawElements(PrimitiveType.Triangles, 3, DrawElementsType.UnsignedShort, (IntPtr)null);
+            GL.DrawElements(PrimitiveType.Triangles, 3, DrawElementsType.UnsignedInt, (IntPtr)null);
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1);
             GLErrorHelper.CheckError();
         }
 
 
-        public void UpdateMesh(FileToObjectConverters.VertexList vertices, ushort[] indices)
+        public void UpdateMesh(FileToObjectConverters.VertexList vertices, int[] indices)
         {
             throw new NotImplementedException();
         }

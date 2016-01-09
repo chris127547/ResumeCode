@@ -80,7 +80,7 @@ namespace OpenGLEngine.RenderedObjects
 
             indiceData = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(quadindicedata.Length * sizeof(ushort)), quadindicedata, BufferUsageHint.StaticDraw);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(quadindicedata.Length * sizeof(int)), quadindicedata, BufferUsageHint.StaticDraw);
 
             textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
         }
@@ -111,12 +111,12 @@ namespace OpenGLEngine.RenderedObjects
             GL.VertexAttribPointer(program.textureHandle, 2, VertexAttribPointerType.Float, false, 36, 28);
 
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedShort, (IntPtr)null);
+            GL.DrawElements(PrimitiveType.Triangles, 36, DrawElementsType.UnsignedInt, (IntPtr)null);
             GLErrorHelper.CheckError();
         }
 
 
-        public void UpdateMesh(FileToObjectConverters.VertexList vertices, ushort[] indices)
+        public void UpdateMesh(FileToObjectConverters.VertexList vertices, int[] indices)
         {
             throw new NotImplementedException();
         }
