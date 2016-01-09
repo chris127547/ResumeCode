@@ -24,10 +24,15 @@ namespace OpenGLEngine.RenderedObjects
 
         public PlyFileObject(Engine engine, float[] color, RenderingStyle style)
         {
-            new PlyFileObject(engine, color, style, null);
+            CreatePlyFileObject(engine, color, style, null);
         }
 
         public PlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
+        {
+            CreatePlyFileObject(engine, color, style, filepath);
+        }
+
+        private void CreatePlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
         {
             PlyFileParser objectData;
             if (filepath == null)
@@ -45,19 +50,6 @@ namespace OpenGLEngine.RenderedObjects
             {
                 objectData = new PlyFileParser(filepath, color);
             }
-
-            /*this.vertices = objectData.vertices;
-            this.indices = objectData.indices;
-            float[] vertices = objectData.vertices.GetAvailableShapeData();
-
-            shapeData = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertices.Length * sizeof(float)), vertices, BufferUsageHint.StaticDraw);
-
-            indiceData = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
-            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(objectData.indices.Length * sizeof(int)), objectData.indices, BufferUsageHint.StaticDraw);
-            */
             UpdateMesh(objectData.vertices, objectData.indices);
 
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
