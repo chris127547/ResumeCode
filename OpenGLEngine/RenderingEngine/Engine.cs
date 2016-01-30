@@ -13,7 +13,7 @@ namespace OpenGLEngine.RenderingEngine
 {
     public class Engine
     {
-        GameWindow game = null;
+        public GameWindow game = null;
         public Camera camera;
         public Light light;
         public List<RenderedObject> renderedObjects;

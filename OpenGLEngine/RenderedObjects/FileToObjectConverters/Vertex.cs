@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,11 +67,41 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
 
         public class Position
         {
-            public float X, Y, Z;
+            public Vector3 vector = new Vector3(0,0,0);
+            public float X
+            {
+                get { return vector.X; }
+                set { vector.X = value; }
+            }
+            public float Y
+            {
+                get { return vector.Y; }
+                set { vector.Y = value; }
+            }
+            public float Z
+            {
+                get { return vector.Z; }
+                set { vector.Z = value; }
+            }
         }
         public class Normal
         {
-            public float X, Y, Z;
+            public Vector3 vector = new Vector3(0, 0, 0);
+            public float X
+            {
+                get { return vector.X; }
+                set { vector.X = value; }
+            }
+            public float Y
+            {
+                get { return vector.Y; }
+                set { vector.Y = value; }
+            }
+            public float Z
+            {
+                get { return vector.Z; }
+                set { vector.Z = value; }
+            }
         }
         public class Color
         {
