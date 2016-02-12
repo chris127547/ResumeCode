@@ -42,6 +42,8 @@ namespace OpenGLEngine.RenderingEngine
 
             game.KeyDown += onKeyDown;
 
+            game.Closing += onClosing;
+
         }
         public void Start()
         {
@@ -122,5 +124,14 @@ namespace OpenGLEngine.RenderingEngine
         {
 
         }
+
+        private void onClosing(object sender, EventArgs e)
+        {
+            for (int i = 0; i < renderedObjects.Count; i++)
+            {
+                renderedObjects[i].Delete();
+            }
+        }
+
     }
 }

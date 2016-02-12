@@ -102,5 +102,11 @@ namespace OpenGLEngine.RenderedObjects
         {
             throw new NotImplementedException();
         }
+
+        public void Delete()
+        {
+            GL.DeleteBuffers(1, ref cubedata);
+            GL.DeleteBuffers(1, ref quadindicedata);
+        }
     }
 }

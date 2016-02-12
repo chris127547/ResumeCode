@@ -69,5 +69,12 @@ namespace OpenGLEngine.RenderedObjects
         {
             throw new NotImplementedException();
         }
+
+        public void Delete()
+        {
+            GL.DeleteBuffers(1, ref shapeData);
+            GL.DeleteBuffers(1, ref indiceData);
+            if (textureID != 0) { GL.DeleteTexture(textureID); }
+        }
     }
 }

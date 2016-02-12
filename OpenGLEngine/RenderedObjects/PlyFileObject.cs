@@ -88,5 +88,12 @@ namespace OpenGLEngine.RenderedObjects
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
             GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indices.Length * sizeof(int)), indices, BufferUsageHint.StaticDraw);
         }
+
+        public void Delete()
+        {
+            GL.DeleteBuffers(1, ref shapeData);
+            GL.DeleteBuffers(1, ref indiceData);
+            if (textureID != 0) { GL.DeleteTexture(textureID); }
+        }
     }
 }
