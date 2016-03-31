@@ -28,7 +28,7 @@ namespace OpenGLEngine.RenderedObjects
                                 1, -1, -3, 0, 0, 1, 1
                             };
 
-            short[] indices = {
+            int[] indices = {
                                   0, 1, 2
                                };
             shapeData = GL.GenBuffer();

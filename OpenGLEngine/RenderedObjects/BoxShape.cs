@@ -50,7 +50,7 @@ namespace OpenGLEngine.RenderedObjects
 				negXdim, negYdim, negZdim, r,g,b,a,
 				negXdim, Ydim, negZdim, r,g,b,a
 		    };
-            short[] tquadindicedata = {
+            int[] tquadindicedata = {
 				0, 1, 2, 
 				0, 2, 3, 
 				4, 5, 6, 

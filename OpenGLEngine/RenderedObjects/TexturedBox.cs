@@ -59,7 +59,7 @@ namespace OpenGLEngine.RenderedObjects
 				negXdim, Ydim, negZdim, r,g,b,a, negUx, Uz,
 				
 		    };
-            short[] quadindicedata = {
+            int[] quadindicedata = {
 				0, 1, 2, 
 				0, 2, 3, 
 				4, 5, 6, 
