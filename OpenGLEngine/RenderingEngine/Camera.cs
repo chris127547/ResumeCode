@@ -107,6 +107,14 @@ namespace OpenGLEngine.RenderingEngine
             transZ += ztran;
             transX += xtran;*/
         }
+
+        public void SetCameraPosition(float Xtranslation, float Ytranslation, float Ztranslation, float updown, float leftright)
+        {
+            transX = Xtranslation; transY = Ytranslation; transZ = Ztranslation;
+            this.updown = updown; this.leftright = leftright;
+            SetCameraPosition();
+        }
+
         private void SetCameraPosition()
         {
             Matrix4 viewtemp = ApplyRotation(Matrix4.Identity, leftright, 0, 1, 0);
