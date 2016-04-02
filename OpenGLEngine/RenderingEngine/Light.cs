@@ -15,5 +15,10 @@ namespace OpenGLEngine.RenderingEngine
         {
             LightPosition = new Vector3(posX, posY, posZ);
         }
+
+        public Light(Vector3 lightPosition)
+        {
+            LightPosition = lightPosition;
+        }
     }
 }
