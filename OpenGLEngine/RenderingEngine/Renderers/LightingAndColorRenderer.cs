@@ -18,13 +18,13 @@ namespace OpenGLEngine.RenderingEngine.Renderers
         int textureID;
         ColorWithLightingButNoTextureProgram program;
         Camera camera;
-        Light light;
+        Engine engine;
 
         public LightingAndColorRenderer(int shapeData, int indiceData, int triangleCount, Engine engine)
         {
             this.shapeData = shapeData; this.indiceData = indiceData; this.triangleCount = triangleCount;
             this.camera = engine.camera; program = engine.programList.ColorWithLightingButNoTextureProgram;
-            this.light = engine.light;
+            this.engine = engine;
         }
 
         public void Render()
@@ -44,7 +44,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GL.ActiveTexture(TextureUnit.Texture0);
             GL.BindTexture(TextureTarget.Texture2D, textureID);
 
-            GL.Uniform3(program.lightPositionHandle, ref light.LightPosition);
+            GL.Uniform3(program.lightPositionHandle, ref engine.light.LightPosition);
 
             GL.UniformMatrix4(program.modelMatrixHandle, false, ref model);
             GL.UniformMatrix3(program.normalModelMatrixHandle, false, ref normalModel);
