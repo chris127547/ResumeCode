@@ -62,6 +62,7 @@
     <Compile Include="RenderedObjects\BoxShape.cs" />
     <Compile Include="RenderedObjects\DrawingTestShape.cs" />
     <Compile Include="RenderedObjects\FileToObjectConverters\PlyFileParser.cs" />
+    <Compile Include="RenderedObjects\FileToObjectConverters\Triangle.cs" />
     <Compile Include="RenderedObjects\FileToObjectConverters\Vertex.cs" />
     <Compile Include="RenderedObjects\FileToObjectConverters\VertexList.cs" />
     <Compile Include="RenderedObjects\PlyFileCube.cs" />

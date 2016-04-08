@@ -15,6 +15,9 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
         public Color color = null;
         public Texture texture = null;
 
+        public List<Triangle> adjacentTriangles = new List<Triangle>();
+        private int index;
+
         public void AddValue(string valueType, float value)
         {
             switch (valueType)
@@ -63,6 +66,32 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
             this.color.Green = color[1];
             this.color.Blue = color[2];
             this.color.Alpha = color[3];
+        }
+
+        public void AddAdjacentTriangle(Triangle v)
+        {
+            adjacentTriangles.Add(v);
+        }
+
+        public void RemoveAdjacentTriangle(Triangle v)
+        {
+            adjacentTriangles.Remove(v);
+        }
+
+        public bool IsAdjacent(Triangle v)
+        {
+            return adjacentTriangles.Contains(v);
+        }
+
+        /// <summary>Gets this Vertices index within a VertexList. Value must be set by calling VertexList.UpdateIndices</summary>
+        public int GetIndex()
+        {
+            return index;
+        }
+
+        public void SetIndex(int index)
+        {
+            this.index = index;
         }
 
         public class Position

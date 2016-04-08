@@ -60,6 +60,14 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
             return textures;
         }
 
+        public void UpdateIndices()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                this[i].SetIndex(i);
+            }
+        }
+
         /// <summary>
         /// For compatability with old code. Creates array with all available data order from position, normal, texture, color
         /// if no data of a type was added then that data will not be included.
