@@ -69,11 +69,8 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
             Vector3 v1 = Vertex1.position.vector;
             Vector3 normal = Vector3.Cross(v2 - v1, v3 - v1);
             if (normal == new Vector3(0, 0, 0))
-            {
-                Vector3 temp = new Vector3(v1.X + 1, v1.Y + 1, v1.Z + 1);
-                Vector3 temp2 = new Vector3(v2.X + 1, v2.Y + 1, v2.Z + 1);
-                Vector3 temp3 = new Vector3(v3.X + 1, v3.Y + 1, v3.Z + 1);
-                normal = Vector3.Cross(temp2 - temp, temp3 - temp);
+            {                
+                normal = Vector3.Cross(v1 - v3, v2 - v3);
             }
             return normal.Normalized();
         }
