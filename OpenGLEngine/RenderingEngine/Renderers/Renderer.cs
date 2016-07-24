@@ -13,5 +13,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
         void Render();
 
         void Render(Matrix4 modelMatrix);
+
+        void Delete();
     }
 }

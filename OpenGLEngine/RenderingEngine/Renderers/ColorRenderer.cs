@@ -51,5 +51,11 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GLErrorHelper.CheckError();
 
         }
+
+        public void Delete()
+        {
+            GL.DeleteBuffer(shapeData);
+            GL.DeleteBuffer(indiceData);
+        }
     }
 }

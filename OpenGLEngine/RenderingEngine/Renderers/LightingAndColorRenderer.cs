@@ -66,5 +66,11 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GL.DrawElements(PrimitiveType.Triangles, triangleCount, DrawElementsType.UnsignedInt, (IntPtr)null);
             GLErrorHelper.CheckError();
         }
+
+        public void Delete()
+        {
+            GL.DeleteBuffer(shapeData);
+            GL.DeleteBuffer(indiceData);
+        }
     }
 }
