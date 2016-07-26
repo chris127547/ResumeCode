@@ -14,6 +14,8 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
         public Normal normal = null;
         public Color color = null;
         public Texture texture = null;
+        public BoneIndex boneIndex = null;
+        public BoneWeight boneWeight = null;
 
         public List<Triangle> adjacentTriangles = new List<Triangle>();
         private int index;
@@ -112,6 +114,11 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                 get { return vector.Z; }
                 set { vector.Z = value; }
             }
+            public Position(Vector3 points)
+            {
+                vector = points;
+            }
+            public Position() { }
         }
         public class Normal
         {
@@ -131,14 +138,47 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                 get { return vector.Z; }
                 set { vector.Z = value; }
             }
+            public Normal(Vector3 direction)
+            {
+                vector = direction;
+            }
+            public Normal() { }
         }
         public class Color
         {
             public float Red, Green, Blue, Alpha;
+            public Color(float red, float green, float blue, float alpha)
+            {
+                Red = red; Green = green; Blue = blue; Alpha = alpha;
+            }
+            public Color() { }
         }
         public class Texture
         {
             public float S, T;
+            public Texture(float s, float t)
+            {
+                S = s; T = t;
+            }
+            public Texture() { }
+        }
+        public class BoneIndex
+        {
+            public int A, B;
+            public BoneIndex(int a, int b)
+            {
+                A = a; B = b;
+            }
+            public BoneIndex() { }
+        }
+        public class BoneWeight
+        {
+            public float A, B;
+            public BoneWeight(float a, float b)
+            {
+                A = a; B = b;
+            }
+            public BoneWeight() { }
         }
     }
 }

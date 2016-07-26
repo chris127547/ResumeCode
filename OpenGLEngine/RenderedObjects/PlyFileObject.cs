@@ -32,6 +32,12 @@ namespace OpenGLEngine.RenderedObjects
             CreatePlyFileObject(engine, color, style, filepath);
         }
 
+        public PlyFileObject(Engine engine, RenderingStyle style, PlyFileParser objectData)
+        {
+            UpdateMesh(objectData.vertices, objectData.indices);
+            CreateRenderer(style, objectData, engine);
+        }
+
         private void CreatePlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
         {
             PlyFileParser objectData;
@@ -52,6 +58,11 @@ namespace OpenGLEngine.RenderedObjects
             }
             UpdateMesh(objectData.vertices, objectData.indices);
 
+            CreateRenderer(style, objectData, engine);
+        }
+
+        private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine)
+        {
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
             {
                 textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
@@ -60,7 +71,7 @@ namespace OpenGLEngine.RenderedObjects
             else if (style == RenderingStyle.ColorAndLightingWithNoTextures)
             {
                 renderer = new LightingAndColorRenderer(shapeData, indiceData, objectData.indices.Length, engine);
-            }
+            }            
         }
 
         public void Render()
@@ -72,7 +83,6 @@ namespace OpenGLEngine.RenderedObjects
         {
             renderer.Render(modelMatrix);
         }
-
 
         public void UpdateMesh(VertexList vertexList, int[] indices)
         {

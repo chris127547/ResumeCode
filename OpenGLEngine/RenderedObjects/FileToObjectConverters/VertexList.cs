@@ -75,11 +75,15 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
         public float[] GetAvailableShapeData()
         {
             bool hasPositions = this[0].position != null, hasNormals = this[0].normal != null, hasTextures = this[0].texture != null, hasColors = this[0].color != null;
+            bool hasBoneIndices = this[0].boneIndex != null; bool hasBoneWeights = this[0].boneWeight != null;
+            if (hasBoneIndices != hasBoneWeights) { throw new Exception("Bones have eight indices and no weights or vise versa."); }
             int stride = 0;
             if (hasPositions) { stride += 3; }
             if (hasNormals) { stride += 3; }
             if (hasTextures) { stride += 2; }
             if (hasColors) { stride += 4; }
+            if (hasBoneIndices) { stride += 2; }
+            if (hasBoneWeights) { stride += 2; }
 
             float[] shapeData = new float[this.Count * stride];
             for (int i = 0; i < this.Count; i++)
@@ -108,6 +112,16 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     shapeData[arraySpot++] = this[i].color.Green;
                     shapeData[arraySpot++] = this[i].color.Blue;
                     shapeData[arraySpot++] = this[i].color.Alpha;
+                }
+                if (hasBoneIndices)
+                {
+                    shapeData[arraySpot++] = this[i].boneIndex.A;
+                    shapeData[arraySpot++] = this[i].boneIndex.B;
+                }
+                if (hasBoneWeights)
+                {
+                    shapeData[arraySpot++] = this[i].boneWeight.A;
+                    shapeData[arraySpot++] = this[i].boneWeight.B;
                 }
             }
             return shapeData;

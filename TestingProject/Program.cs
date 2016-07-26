@@ -1,4 +1,5 @@
 ﻿using OpenGLEngine.RenderedObjects;
+using OpenGLEngine.RenderedObjects.FileToObjectConverters;
 using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Enums;
 using OpenTK;
@@ -12,7 +13,8 @@ namespace TestingProject
 {
     class Program
     {
-        private static string fileToRender = "C:\\Users\\Chris\\Documents\\3D models\\Monster Parts\\Deer Parts\\deertorso.ply";
+        //private static string fileToRender = "C:\\Users\\Chris\\Documents\\3D models\\Monster Parts\\Deer Parts\\Torso\\deertorso.ply";
+        private static string fileToRender = "C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply";
 
         static Engine engine;
         static private Light light;
@@ -28,8 +30,14 @@ namespace TestingProject
             //engine.renderedObjects.Add(new PlyFileCube(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures));
             //engine.renderedObjects.Add(new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights));
 
-
-            engine.renderedObjects.Add(new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures));
+            //PlyFileObject ply = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures, fileToRender);
+            //PlyFileObject ply = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.SkeletonColorAndLightingWithNoTextures, fileToRender);
+            PlyFileParser ply = new PlyFileParser(fileToRender, new float[] { 1, 1, 1, 1 });
+            AddBoneData(ply.vertices);
+            //PlyFileObject plyObject = new PlyFileObject(engine, RenderingStyle.ColorAndLightingWithNoTextures, ply);
+            SkeletonTestObject testObject = new SkeletonTestObject(engine, ply);
+            
+            engine.renderedObjects.Add(testObject);
             engine.renderedObjects.Add(new Square(engine));
             engine.game.RenderFrame += MoveLight;
             engine.Start();
@@ -52,6 +60,61 @@ namespace TestingProject
             float Z = (float)(sinTheta * (point.X - around.X) - cosTheta * (point.Y - around.Y) + around.Y);
 
             return new Vector3(X, 0, Z);
+        }
+
+        public static void AddBoneData(VertexList vertices)
+        {
+            Vector3 bottomBackLeft = new Vector3(-1, -1, -1);
+            Vector3 bottomFrontLeft = new Vector3(-1, -1, 1);
+            Vector3 topBackLeft = new Vector3(-1, 1, -1);
+            Vector3 topFrontLeft = new Vector3(-1, 1, 1);
+            Vector3 bottomBackRight = new Vector3(1, -1, -1);
+            Vector3 bottomFrontRight = new Vector3(1, -1, 1);
+            Vector3 topBackRight = new Vector3(1, 1, -1);
+            Vector3 topFrontRight = new Vector3(1, 1, 1);
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                if (vertices[i].position.vector == bottomBackLeft)
+                {
+                    vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
+                    vertices[i].boneWeight = new Vertex.BoneWeight(1, 0);
+                }
+                if (vertices[i].position.vector == bottomFrontLeft)
+                {
+                    vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
+                    vertices[i].boneWeight = new Vertex.BoneWeight(1, 0);
+                }
+                if (vertices[i].position.vector == topBackLeft)
+                {
+                    vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
+                    vertices[i].boneWeight = new Vertex.BoneWeight(1, 0);
+                }
+                if (vertices[i].position.vector == topFrontLeft)
+                {
+                    vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
+                    vertices[i].boneWeight = new Vertex.BoneWeight(1, 0);
+                }
+                if (vertices[i].position.vector == bottomBackRight)
+                {
+                    vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
+                    vertices[i].boneWeight = new Vertex.BoneWeight(0, 1);
+                }
+                if (vertices[i].position.vector == bottomFrontRight)
+                {
+                    vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
+                    vertices[i].boneWeight = new Vertex.BoneWeight(0, 1);
+                }
+                if (vertices[i].position.vector == topBackRight)
+                {
+                    vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
+                    vertices[i].boneWeight = new Vertex.BoneWeight(0, 1);
+                }
+                if (vertices[i].position.vector == topFrontRight)
+                {
+                    vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
+                    vertices[i].boneWeight = new Vertex.BoneWeight(0, 1);
+                }
+            }
         }
     }
 }

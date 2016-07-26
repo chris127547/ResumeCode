@@ -15,7 +15,6 @@ namespace OpenGLEngine.RenderingEngine.Renderers
         int shapeData;
         int indiceData;
         int triangleCount;
-        int textureID;
         ColorWithLightingButNoTextureProgram program;
         Camera camera;
         Engine engine;
@@ -40,10 +39,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             Matrix3 normalModel = new Matrix3(Matrix4.Transpose(Matrix4.Invert(model)));
             GLErrorHelper.CheckError();
             GL.UseProgram(program.programHandle);
-
-            GL.ActiveTexture(TextureUnit.Texture0);
-            GL.BindTexture(TextureTarget.Texture2D, textureID);
-
+            
             GL.Uniform3(program.lightPositionHandle, ref engine.light.LightPosition);
 
             GL.UniformMatrix4(program.modelMatrixHandle, false, ref model);
