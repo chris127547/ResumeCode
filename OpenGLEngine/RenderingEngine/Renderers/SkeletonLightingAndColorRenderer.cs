@@ -14,7 +14,6 @@ namespace OpenGLEngine.RenderingEngine.Renderers
         int shapeData;
         int indiceData;
         int triangleCount;
-        //int textureID;
         SkeletonColorWithLightingButNoTextureProgram program;
         Camera camera;
         Engine engine;
@@ -34,9 +33,6 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             float[] skeletonValues = Matrix4ArrayToFloatArray(skeleton);
             GLErrorHelper.CheckError();
             GL.UseProgram(program.programHandle);
-
-            //GL.ActiveTexture(TextureUnit.Texture0);
-            //GL.BindTexture(TextureTarget.Texture2D, textureID);
 
             GL.Uniform3(program.lightPositionHandle, ref engine.light.LightPosition);
 

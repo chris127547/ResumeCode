@@ -218,7 +218,6 @@ namespace OpenGLEngine.RenderingEngine.Programs
         {
             string vertexshader =
                 " uniform mat4 u_MVPMatrix; \n"
-              //+ " uniform int u_numBones; \n"
               + "uniform mat4 u_Bone[40]; \n"
 
               + "attribute vec4 a_position; \n"
@@ -241,13 +240,8 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "     index = int(a_boneIndex.y); \n"
               + "     v_position = ((u_Bone[index] * a_position) * a_boneWeight.y) + v_position; \n"
               + "     v4Normal = ((u_Bone[index] * vec4(a_normal, 0.0)) * a_boneWeight.y) + v4Normal; \n"
-              //+ "     v_position = a_position; \n"
-              //+ "     v_normal = a_normal; \n"
               + "     v_normal = vec3(v4Normal); \n"
               + "     v_color = a_color; \n"
-              //+ "     v_color.x = u_Bone[index] * a_boneWeight.x; \n"
-              //+ "     v_color.x = a_boneWeight.x; \n"
-              //+ " v_color.x = (a_boneIndex.x * a_boneWeight.x); \n"
 
               + "     gl_Position = u_MVPMatrix * vec4(v_position.xyz, 1); \n"
               + " }";
@@ -258,7 +252,6 @@ namespace OpenGLEngine.RenderingEngine.Programs
         {
             string fragmentshader =
                   " uniform mat4 u_ModelMatrix; \n"
-               // + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform vec3 u_LightPos; \n"
 
                 + " varying vec4 v_position; \n"
@@ -266,7 +259,6 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + " varying vec3 v_normal; \n"
 
                 + " void main() { \n"
-             //   + "    vec3 normal = normalize(u_NormalMatrix * v_normal); \n"
 
                 + "    vec3 fragPosition = vec3(u_ModelMatrix * v_position); \n"
 
