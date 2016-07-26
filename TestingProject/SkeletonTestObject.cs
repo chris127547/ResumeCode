@@ -19,7 +19,7 @@ namespace TestingProject
         int textureID;
         public VertexList vertices;
         public int[] indices;
-        SkeletonLightingAndColorRenderer renderer;
+        SkeletonRenderer renderer;
         Matrix4 position;
         Matrix4[] skeleton;
 

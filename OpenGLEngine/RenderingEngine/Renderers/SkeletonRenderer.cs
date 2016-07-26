@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderingEngine.Renderers
 {
-    interface SkeletonRenderer
+    public interface SkeletonRenderer
     {
         void Render(Matrix4 modelMatrix, Matrix4[] skeleton);
 
