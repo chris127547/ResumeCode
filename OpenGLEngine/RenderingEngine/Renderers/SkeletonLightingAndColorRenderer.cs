@@ -108,19 +108,12 @@ namespace OpenGLEngine.RenderingEngine.Renderers
                 output[outputIndex++] = updatedArray.M11;
                 output[outputIndex++] = updatedArray.M12;
                 output[outputIndex++] = updatedArray.M13;
-                //output[outputIndex++] = updatedArray.M14;
                 output[outputIndex++] = updatedArray.M21;
                 output[outputIndex++] = updatedArray.M22;
                 output[outputIndex++] = updatedArray.M23;
-                //output[outputIndex++] = updatedArray.M24;
                 output[outputIndex++] = updatedArray.M31;
                 output[outputIndex++] = updatedArray.M32;
                 output[outputIndex++] = updatedArray.M33;
-                //output[outputIndex++] = updatedArray.M34;
-                //output[outputIndex++] = updatedArray.M41;
-                //output[outputIndex++] = updatedArray.M42;
-                //output[outputIndex++] = updatedArray.M43;
-                //output[outputIndex++] = updatedArray.M44;
             }
             return output;
         }

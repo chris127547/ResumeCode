@@ -244,7 +244,6 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "     v_position = ((u_Bone[index] * a_position) * a_boneWeight.y) + v_position; \n"
               + "     Normal = ((u_NormalBone[index] * a_normal) * a_boneWeight.y) + Normal; \n"
               + "     v_normal = Normal; \n"
-              + "     v_normal = a_normal; \n"
               + "     v_color = a_color; \n"
               + "     v_boneIndex = a_boneIndex; \n"
               + "     v_boneWeight = a_boneWeight; \n"
@@ -260,7 +259,6 @@ namespace OpenGLEngine.RenderingEngine.Programs
                   " uniform mat4 u_ModelMatrix; \n"
                 + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform vec3 u_LightPos; \n"
-                //+ " uniform mat3 u_NormalBone[40]; \n"
 
                 + " varying vec4 v_position; \n"
                 + " varying vec4 v_color; \n"
@@ -270,18 +268,10 @@ namespace OpenGLEngine.RenderingEngine.Programs
 
                 + " void main() { \n"
 
-                //+ "    vec3 fragPosition = vec3(u_ModelMatrix * v_position); \n"
-                //+ "    int index = int(v_boneIndex.x); \n"
-                //+ "    vec3 normal = (u_NormalBone[index] * v_normal) * v_boneWeight.x; \n"
-                //+ "    index = int(v_boneIndex.y); \n"
-                //+ "    normal = ((u_NormalBone[index] * v_normal) * v_boneWeight.y) + normal; \n"
-                //+ "    normal = normalize(normal); \n"
+                + "    vec3 fragPosition = vec3(u_ModelMatrix * v_position); \n"
                 + "    vec3 normal = normalize(u_NormalMatrix * v_normal); \n"
-                //+ "    vec3 normal = normalize(v_normal); \n"
 
-                //+ "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
-
-                + "    vec3 surfaceToLight = u_LightPos - v_position; \n"
+                + "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
 
                 + "    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal)); \n"
                 + "    brightness = max(brightness, 0.3f); \n"
