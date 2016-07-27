@@ -229,19 +229,24 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + " varying vec4 v_position; \n"
               + " varying vec4 v_color; \n"
               + " varying vec3 v_normal; \n"
+              + " varying vec2 v_boneIndex; \n"
+              + " varying vec2 v_boneWeight; \n"
 
               + " void main() { \n"
 
-              + "     vec4 v4Normal; \n"
+              //+ "     vec4 v4Normal; \n"
               + "     int index; \n"
               + "     index = int(a_boneIndex.x); \n"
               + "     v_position = (u_Bone[index] * a_position) * a_boneWeight.x; \n"
-              + "     v4Normal = (u_Bone[index] * vec4(a_normal, 0.0)) * a_boneWeight.x; \n"
+              //+ "     v4Normal = (u_Bone[index] * vec4(a_normal, 0.0)) * a_boneWeight.x; \n"
               + "     index = int(a_boneIndex.y); \n"
               + "     v_position = ((u_Bone[index] * a_position) * a_boneWeight.y) + v_position; \n"
-              + "     v4Normal = ((u_Bone[index] * vec4(a_normal, 0.0)) * a_boneWeight.y) + v4Normal; \n"
-              + "     v_normal = vec3(v4Normal); \n"
+              //+ "     v4Normal = ((u_Bone[index] * vec4(a_normal, 0.0)) * a_boneWeight.y) + v4Normal; \n"
+              //+ "     v_normal = vec3(v4Normal); \n"
+              + "     v_normal = a_normal; \n"
               + "     v_color = a_color; \n"
+              + "     v_boneIndex = a_boneIndex; \n"
+              + "     v_boneWeight = a_boneWeight; \n"
 
               + "     gl_Position = u_MVPMatrix * vec4(v_position.xyz, 1); \n"
               + " }";
@@ -252,19 +257,31 @@ namespace OpenGLEngine.RenderingEngine.Programs
         {
             string fragmentshader =
                   " uniform mat4 u_ModelMatrix; \n"
+                + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform vec3 u_LightPos; \n"
+                + " uniform mat3 u_NormalBone[40]; \n"
 
                 + " varying vec4 v_position; \n"
                 + " varying vec4 v_color; \n"
                 + " varying vec3 v_normal; \n"
+                + " varying vec2 v_boneIndex; \n"
+                + " varying vec2 v_boneWeight; \n"
 
                 + " void main() { \n"
 
-                + "    vec3 fragPosition = vec3(u_ModelMatrix * v_position); \n"
+                //+ "    vec3 fragPosition = vec3(u_ModelMatrix * v_position); \n"
+                + "    int index = int(v_boneIndex.x); \n"
+                + "    vec3 normal = (u_NormalBone[index] * v_normal) * v_boneWeight.x; \n"
+                + "    index = int(v_boneIndex.y); \n"
+                + "    normal = ((u_NormalBone[index] * v_normal) * v_boneWeight.y) + normal; \n"
+                //+ "    normal = normalize(normal); \n"
+                + "    normal = normalize(u_NormalMatrix * normal); \n"
 
-                + "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
+                //+ "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
 
-                + "    float brightness = dot(v_normal, surfaceToLight) / (length(surfaceToLight) * length(v_normal)); \n"
+                + "    vec3 surfaceToLight = u_LightPos - v_position; \n"
+
+                + "    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal)); \n"
                 + "    brightness = max(brightness, 0.3f); \n"
                 + "    gl_FragColor = vec4(brightness * v_color.rgb, v_color.a); \n"
                 + " }";

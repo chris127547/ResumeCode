@@ -31,6 +31,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             Matrix4 MVP = (model * camera.ViewMatrix) * camera.ProjectionMatrix;
             Matrix3 normalModel = new Matrix3(Matrix4.Transpose(Matrix4.Invert(model)));
             float[] skeletonValues = Matrix4ArrayToFloatArray(skeleton);
+            float[] normalValues = Matrix4ArrayToInvertedAndTransposedMatrix3FloatArray(skeleton);
             GLErrorHelper.CheckError();
             GL.UseProgram(program.programHandle);
 
@@ -39,6 +40,8 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GL.UniformMatrix4(program.modelMatrixHandle, false, ref model);
             GL.UniformMatrix4(program.MVPMatrixHandle, false, ref MVP);
             GL.UniformMatrix4(program.boneArrayHandle, skeleton.Length, false, skeletonValues);
+            GL.UniformMatrix3(program.normalArrayHandle, skeleton.Length, false, normalValues);
+            GL.UniformMatrix3(program.normalModelMatrixHandle, false, ref normalModel);
             GLErrorHelper.CheckError();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);
@@ -91,6 +94,33 @@ namespace OpenGLEngine.RenderingEngine.Renderers
                 output[outputIndex++] = array[i].M42;
                 output[outputIndex++] = array[i].M43;
                 output[outputIndex++] = array[i].M44;
+            }
+            return output;
+        }
+
+        private float[] Matrix4ArrayToInvertedAndTransposedMatrix3FloatArray(Matrix4[] array)
+        {
+            float[] output = new float[array.Length * 9];
+            for (int i = 0; i < array.Length; i++)
+            {
+                Matrix3 updatedArray = new Matrix3(Matrix4.Transpose(Matrix4.Invert(array[i])));
+                int outputIndex = i * 9;
+                output[outputIndex++] = updatedArray.M11;
+                output[outputIndex++] = updatedArray.M12;
+                output[outputIndex++] = updatedArray.M13;
+                //output[outputIndex++] = updatedArray.M14;
+                output[outputIndex++] = updatedArray.M21;
+                output[outputIndex++] = updatedArray.M22;
+                output[outputIndex++] = updatedArray.M23;
+                //output[outputIndex++] = updatedArray.M24;
+                output[outputIndex++] = updatedArray.M31;
+                output[outputIndex++] = updatedArray.M32;
+                output[outputIndex++] = updatedArray.M33;
+                //output[outputIndex++] = updatedArray.M34;
+                //output[outputIndex++] = updatedArray.M41;
+                //output[outputIndex++] = updatedArray.M42;
+                //output[outputIndex++] = updatedArray.M43;
+                //output[outputIndex++] = updatedArray.M44;
             }
             return output;
         }
