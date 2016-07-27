@@ -219,6 +219,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
             string vertexshader =
                 " uniform mat4 u_MVPMatrix; \n"
               + "uniform mat4 u_Bone[40]; \n"
+              + " uniform mat3 u_NormalBone[40]; \n"
 
               + "attribute vec4 a_position; \n"
               + "attribute vec4 a_color; \n"
@@ -234,15 +235,15 @@ namespace OpenGLEngine.RenderingEngine.Programs
 
               + " void main() { \n"
 
-              //+ "     vec4 v4Normal; \n"
+              + "     vec3 Normal; \n"
               + "     int index; \n"
               + "     index = int(a_boneIndex.x); \n"
               + "     v_position = (u_Bone[index] * a_position) * a_boneWeight.x; \n"
-              //+ "     v4Normal = (u_Bone[index] * vec4(a_normal, 0.0)) * a_boneWeight.x; \n"
+              + "     Normal = (u_NormalBone[index] * a_normal) * a_boneWeight.x; \n"
               + "     index = int(a_boneIndex.y); \n"
               + "     v_position = ((u_Bone[index] * a_position) * a_boneWeight.y) + v_position; \n"
-              //+ "     v4Normal = ((u_Bone[index] * vec4(a_normal, 0.0)) * a_boneWeight.y) + v4Normal; \n"
-              //+ "     v_normal = vec3(v4Normal); \n"
+              + "     Normal = ((u_NormalBone[index] * a_normal) * a_boneWeight.y) + Normal; \n"
+              + "     v_normal = Normal; \n"
               + "     v_normal = a_normal; \n"
               + "     v_color = a_color; \n"
               + "     v_boneIndex = a_boneIndex; \n"
@@ -259,7 +260,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                   " uniform mat4 u_ModelMatrix; \n"
                 + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform vec3 u_LightPos; \n"
-                + " uniform mat3 u_NormalBone[40]; \n"
+                //+ " uniform mat3 u_NormalBone[40]; \n"
 
                 + " varying vec4 v_position; \n"
                 + " varying vec4 v_color; \n"
@@ -270,12 +271,13 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + " void main() { \n"
 
                 //+ "    vec3 fragPosition = vec3(u_ModelMatrix * v_position); \n"
-                + "    int index = int(v_boneIndex.x); \n"
-                + "    vec3 normal = (u_NormalBone[index] * v_normal) * v_boneWeight.x; \n"
-                + "    index = int(v_boneIndex.y); \n"
-                + "    normal = ((u_NormalBone[index] * v_normal) * v_boneWeight.y) + normal; \n"
+                //+ "    int index = int(v_boneIndex.x); \n"
+                //+ "    vec3 normal = (u_NormalBone[index] * v_normal) * v_boneWeight.x; \n"
+                //+ "    index = int(v_boneIndex.y); \n"
+                //+ "    normal = ((u_NormalBone[index] * v_normal) * v_boneWeight.y) + normal; \n"
                 //+ "    normal = normalize(normal); \n"
-                + "    normal = normalize(u_NormalMatrix * normal); \n"
+                + "    vec3 normal = normalize(u_NormalMatrix * v_normal); \n"
+                //+ "    vec3 normal = normalize(v_normal); \n"
 
                 //+ "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
 
