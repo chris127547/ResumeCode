@@ -37,7 +37,6 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GL.Uniform3(program.lightPositionHandle, ref engine.light.LightPosition);
 
             GL.UniformMatrix4(program.modelMatrixHandle, false, ref model);
-            GL.UniformMatrix3(program.normalModelMatrixHandle, false, ref normalModel);
             GL.UniformMatrix4(program.MVPMatrixHandle, false, ref MVP);
             GL.UniformMatrix4(program.boneArrayHandle, skeleton.Length, false, skeletonValues);
             GLErrorHelper.CheckError();
