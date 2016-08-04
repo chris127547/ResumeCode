@@ -27,17 +27,18 @@ namespace TestingProject
 
             //engine.renderedObjects.Add(new Square(engine));
             //engine.renderedObjects.Add(new PlyFileObject(engine, new float[]{1,1,1,1}, RenderingStyle.ColorAndLightingWithNoTextures, fileToRender));
-            //engine.renderedObjects.Add(new PlyFileCube(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures));
-            //engine.renderedObjects.Add(new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights));
+            engine.renderedObjects.Add(new PlyFileCube(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures));
+            engine.renderedObjects.Add(new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights));
 
             //PlyFileObject ply = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures, fileToRender);
             //PlyFileObject ply = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.SkeletonColorAndLightingWithNoTextures, fileToRender);
-            PlyFileParser ply = new PlyFileParser(fileToRender, new float[] { 1, 1, 1, 1 });
-            AddBoneData(ply.vertices);
+            //PlyFileParser ply = new PlyFileParser(fileToRender, new float[] { 1, 1, 1, 1 });
+            //AddBoneData(ply.vertices);
+            //AddTextureData(ply.vertices);
             //PlyFileObject plyObject = new PlyFileObject(engine, RenderingStyle.ColorAndLightingWithNoTextures, ply);
-            SkeletonTestObject testObject = new SkeletonTestObject(engine, ply);
+            //SkeletonTestObject testObject = new SkeletonTestObject(engine, ply);
             
-            engine.renderedObjects.Add(testObject);
+            //engine.renderedObjects.Add(testObject);
             engine.renderedObjects.Add(new Square(engine));
             engine.game.RenderFrame += MoveLight;
             engine.Start();
@@ -78,42 +79,59 @@ namespace TestingProject
                 {
                     vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
                     vertices[i].boneWeight = new Vertex.BoneWeight(1, 0);
+                    vertices[i].texture = new Vertex.Texture(-1, -1);
                 }
                 if (vertices[i].position.vector == bottomFrontLeft)
                 {
                     vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
                     vertices[i].boneWeight = new Vertex.BoneWeight(1, 0);
+                    vertices[i].texture = new Vertex.Texture(-1, 1);
                 }
                 if (vertices[i].position.vector == topBackLeft)
                 {
                     vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
                     vertices[i].boneWeight = new Vertex.BoneWeight(1, 0);
+                    vertices[i].texture = new Vertex.Texture(-1, -1);
                 }
                 if (vertices[i].position.vector == topFrontLeft)
                 {
                     vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
                     vertices[i].boneWeight = new Vertex.BoneWeight(1, 0);
+                    vertices[i].texture = new Vertex.Texture(-1, 1);
                 }
                 if (vertices[i].position.vector == bottomBackRight)
                 {
                     vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
                     vertices[i].boneWeight = new Vertex.BoneWeight(0, 1);
+                    vertices[i].texture = new Vertex.Texture(-1, -1);
                 }
                 if (vertices[i].position.vector == bottomFrontRight)
                 {
                     vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
                     vertices[i].boneWeight = new Vertex.BoneWeight(0, 1);
+                    vertices[i].texture = new Vertex.Texture(-1, 1);
                 }
                 if (vertices[i].position.vector == topBackRight)
                 {
                     vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
                     vertices[i].boneWeight = new Vertex.BoneWeight(0, 1);
+                    vertices[i].texture = new Vertex.Texture(1, -1);
                 }
                 if (vertices[i].position.vector == topFrontRight)
                 {
                     vertices[i].boneIndex = new Vertex.BoneIndex(0, 1);
                     vertices[i].boneWeight = new Vertex.BoneWeight(0, 1);
+                    vertices[i].texture = new Vertex.Texture(1, 1);
                 }
+            }
+        }
+
+        private static void AddTextureData(VertexList verts)
+        {
+            Random rng = new Random();
+            for (int i = 0; i < verts.Count; i++)
+            {
+                verts[i].texture = new Vertex.Texture(rng.Next(0, 1), rng.Next(0, 1));
             }
         }
     }

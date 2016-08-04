@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderingEngine.Renderers
 {
-    class LightingAndTextureRenderer : Renderer
+    public class LightingAndTextureRenderer : Renderer
     {
         int shapeData;
         int indiceData;
@@ -34,7 +34,6 @@ namespace OpenGLEngine.RenderingEngine.Renderers
         public void Render(Matrix4 modelMatrix)
         {
             Matrix4 model = modelMatrix;
-            model = model * Matrix4.CreateTranslation(1, 1, -30);
             Matrix4 MVP = (model * camera.ViewMatrix) * camera.ProjectionMatrix;
             Matrix3 normalModel = new Matrix3(Matrix4.Transpose(Matrix4.Invert(model)));
             GLErrorHelper.CheckError();

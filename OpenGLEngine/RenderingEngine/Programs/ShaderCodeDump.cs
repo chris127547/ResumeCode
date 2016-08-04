@@ -279,5 +279,78 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + " }";
             return fragmentshader;
         }
+
+        public static string GetLightingAndTextureSkeletonAnimationVertexShader()
+        {
+            string vertexshader =
+                " uniform mat4 u_MVPMatrix; \n"
+              + "uniform mat4 u_Bone[40]; \n"
+              + " uniform mat3 u_NormalBone[40]; \n"
+
+              + "attribute vec4 a_position; \n"
+              + "attribute vec4 a_color; \n"
+              + "attribute vec3 a_normal;       \n"
+              + "attribute vec2 a_boneIndex; \n"
+              + "attribute vec2 a_boneWeight; \n"
+              + "attribute vec2 a_texcord; \n"
+
+              + " varying vec4 v_position; \n"
+              + " varying vec4 v_color; \n"
+              + " varying vec3 v_normal; \n"
+              + " varying vec2 v_boneIndex; \n"
+              + " varying vec2 v_boneWeight; \n"
+              + " varying vec2 v_texcord; \n"
+
+              + " void main() { \n"
+
+              + "     vec3 Normal; \n"
+              + "     int index; \n"
+              + "     index = int(a_boneIndex.x); \n"
+              + "     v_position = (u_Bone[index] * a_position) * a_boneWeight.x; \n"
+              + "     Normal = (u_NormalBone[index] * a_normal) * a_boneWeight.x; \n"
+              + "     index = int(a_boneIndex.y); \n"
+              + "     v_position = ((u_Bone[index] * a_position) * a_boneWeight.y) + v_position; \n"
+              + "     Normal = ((u_NormalBone[index] * a_normal) * a_boneWeight.y) + Normal; \n"
+              + "     v_normal = Normal; \n"
+              + "     v_color = a_color; \n"
+              + "     v_boneIndex = a_boneIndex; \n"
+              + "     v_boneWeight = a_boneWeight; \n"
+              + "     v_texcord = a_texcord; \n"
+
+              + "     gl_Position = u_MVPMatrix * vec4(v_position.xyz, 1); \n"
+              + " }";
+            return vertexshader;
+        }
+
+        public static string GetLightingAndTextureSkeletonAnimationFragmentShader()
+        {
+            string fragmentshader =
+                  " uniform mat4 u_ModelMatrix; \n"
+                + " uniform mat3 u_NormalMatrix; \n"
+                + " uniform vec3 u_LightPos; \n"
+                + " uniform sampler2D u_texture; \n"
+
+                + " varying vec4 v_position; \n"
+                + " varying vec4 v_color; \n"
+                + " varying vec3 v_normal; \n"
+                + " varying vec2 v_boneIndex; \n"
+                + " varying vec2 v_boneWeight; \n"
+                + " varying vec2 v_texcord; \n"
+
+                + " void main() { \n"
+
+                + "    vec3 fragPosition = vec3(u_ModelMatrix * v_position); \n"
+                + "    vec3 normal = normalize(u_NormalMatrix * v_normal); \n"
+
+                + "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
+
+                + "    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal)); \n"
+                + "    brightness = max(brightness, 0.3f); \n"
+                + "    vec4 surfaceColor = texture2D(u_texture, v_texcord); \n"
+                + "    surfaceColor = surfaceColor * v_color; \n"
+                + "    gl_FragColor = vec4(brightness * surfaceColor.rgb, surfaceColor.a); \n"
+                + " }";
+            return fragmentshader;
+        }
     }
 }

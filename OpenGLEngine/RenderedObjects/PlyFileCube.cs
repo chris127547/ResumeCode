@@ -32,7 +32,7 @@ namespace OpenGLEngine.RenderedObjects
             }
             else
             {
-                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", null);
+                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\texturedCube.ply", null);
             }
 
             this.vertices = objectData.vertices;

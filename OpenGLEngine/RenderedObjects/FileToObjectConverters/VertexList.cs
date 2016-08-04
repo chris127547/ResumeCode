@@ -76,7 +76,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
         {
             bool hasPositions = this[0].position != null, hasNormals = this[0].normal != null, hasTextures = this[0].texture != null, hasColors = this[0].color != null;
             bool hasBoneIndices = this[0].boneIndex != null; bool hasBoneWeights = this[0].boneWeight != null;
-            if (hasBoneIndices != hasBoneWeights) { throw new Exception("Bones have eight indices and no weights or vise versa."); }
+            if (hasBoneIndices != hasBoneWeights) { throw new Exception("Bones have indices and no weights or vise versa."); }
             int stride = 0;
             if (hasPositions) { stride += 3; }
             if (hasNormals) { stride += 3; }

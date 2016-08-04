@@ -83,6 +83,7 @@
     <Compile Include="RenderingEngine\Programs\SimpleColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\SimpleTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\SkeletonColorWithLightingButNoTextureProgram.cs" />
+    <Compile Include="RenderingEngine\Programs\SkeletonLightingColorAndTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingButNoColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingProgram.cs" />
     <Compile Include="RenderingEngine\Renderers\ColorRenderer.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="RenderingEngine\Renderers\LightingAndTextureRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\Renderer.cs" />
     <Compile Include="RenderingEngine\Renderers\SkeletonLightingAndColorRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\SkeletonLightingColorAndTextureRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\SkeletonRenderer.cs" />
     <Compile Include="RenderingEngine\Textures\TextureManager.cs" />
   </ItemGroup>

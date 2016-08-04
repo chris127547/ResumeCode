@@ -2,6 +2,7 @@
 using OpenGLEngine.RenderedObjects.FileToObjectConverters;
 using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Renderers;
+using OpenGLEngine.RenderingEngine.Textures;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
@@ -28,7 +29,8 @@ namespace TestingProject
         public SkeletonTestObject(Engine engine, PlyFileParser objectData)
         {
             UpdateMesh(objectData.vertices, objectData.indices);
-            renderer = new SkeletonLightingAndColorRenderer(shapeData, indiceData, objectData.indices.Length, engine);
+            textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
+            renderer = new SkeletonLightingColorAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
             SetupTestSkeleton();
         }
 
