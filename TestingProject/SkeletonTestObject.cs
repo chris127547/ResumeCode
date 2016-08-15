@@ -29,7 +29,7 @@ namespace TestingProject
         public SkeletonTestObject(Engine engine, PlyFileParser objectData)
         {
             UpdateMesh(objectData.vertices, objectData.indices);
-            textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
+            textureID = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
             renderer = new SkeletonLightingColorAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
             SetupTestSkeleton();
         }

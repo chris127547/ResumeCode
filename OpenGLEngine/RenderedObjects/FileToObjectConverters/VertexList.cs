@@ -102,7 +102,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     shapeData[arraySpot++] = this[i].normal.Z;
                 }
                 if (hasTextures)
-                {
+                {                    
                     shapeData[arraySpot++] = this[i].texture.S;
                     shapeData[arraySpot++] = this[i].texture.T;
                 }

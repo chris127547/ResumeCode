@@ -82,7 +82,7 @@ namespace OpenGLEngine.RenderedObjects
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
             GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(quadindicedata.Length * sizeof(int)), quadindicedata, BufferUsageHint.StaticDraw);
 
-            textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
+            textureID = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
         }
 
         public void Render()

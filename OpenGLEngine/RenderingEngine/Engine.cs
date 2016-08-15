@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLEngine.RenderingEngine.Textures;
 
 namespace OpenGLEngine.RenderingEngine
 {
@@ -18,6 +19,7 @@ namespace OpenGLEngine.RenderingEngine
         public Light light;
         public List<RenderedObject> renderedObjects;
         public ProgramList programList;
+        public TextureManager textureManager;
         public float[] clearColor = new float[]{1, 1, 1, 1};
         public Engine()
         {
@@ -26,6 +28,7 @@ namespace OpenGLEngine.RenderingEngine
             light = new Light(5, 25, 30);
             renderedObjects = new List<RenderedObject>();
             programList = new ProgramList();
+            textureManager = new TextureManager();
 
             GL.Enable(EnableCap.Blend);
             GL.Enable(EnableCap.DepthTest);
@@ -50,16 +53,14 @@ namespace OpenGLEngine.RenderingEngine
             game.Run(60.0);
         }
 
+        public int LoadTexture(string filepath)
+        {
+            return textureManager.LoadTexture(filepath);
+        }
+
         private void OnGameLoad(object sender, EventArgs e)
         {
             game.VSync = VSyncMode.On;
-            //renderedObjects.Add(new PlyFileCube(this, new float[] { 1, 0.5f, 0, 1 }, Enums.RenderingStyle.ColorAndLightingWithNoTextures));
-            //renderedObjects.Add(new PlyFileCube(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
-            //renderedObjects.Add(new TexturedBoxWithLighting(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
-            //renderedObjects.Add(new TexturedBox(this, 2, 2, 2, new float[] { 0.2f, 0.2f, 1, 0.8f }));
-            //renderedObjects.Add(new BoxShape(this, 2, 2, 2, new float[] { 1, 1, 1, 1 }));
-            //renderedObjects.Add(new Square(this));
-            //renderedObjects.Add(new DrawingTestShape(this));
         }
         private void OnResize(object sender, EventArgs e)
         {
@@ -131,6 +132,7 @@ namespace OpenGLEngine.RenderingEngine
             {
                 renderedObjects[i].Delete();
             }
+            textureManager.ClearTextures();
         }
 
     }

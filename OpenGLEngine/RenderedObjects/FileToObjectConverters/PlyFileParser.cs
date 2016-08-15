@@ -10,7 +10,6 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
 {
     public class PlyFileParser
     {
-        //public float[] verticess;
         public int[] indices;
         public VertexList vertices;
 

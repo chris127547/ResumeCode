@@ -10,7 +10,5 @@ namespace OpenGLEngine.RenderingEngine.Renderers
     public interface SkeletonRenderer
     {
         void Render(Matrix4 modelMatrix, Matrix4[] skeleton);
-
-        void Delete();
     }
 }

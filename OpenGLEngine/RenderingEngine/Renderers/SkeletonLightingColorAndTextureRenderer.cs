@@ -74,12 +74,6 @@ namespace OpenGLEngine.RenderingEngine.Renderers
             GLErrorHelper.CheckError();
         }
 
-        public void Delete()
-        {
-            GL.DeleteBuffer(shapeData);
-            GL.DeleteBuffer(indiceData);
-        }
-
         private float[] Matrix4ArrayToFloatArray(Matrix4[] array)
         {
             float[] output = new float[array.Length * 16];

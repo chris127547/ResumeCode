@@ -27,8 +27,8 @@ namespace TestingProject
 
             //engine.renderedObjects.Add(new Square(engine));
             //engine.renderedObjects.Add(new PlyFileObject(engine, new float[]{1,1,1,1}, RenderingStyle.ColorAndLightingWithNoTextures, fileToRender));
-            engine.renderedObjects.Add(new PlyFileCube(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures));
-            engine.renderedObjects.Add(new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights));
+            //engine.renderedObjects.Add(new PlyFileCube(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures));
+            //engine.renderedObjects.Add(new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights));
 
             //PlyFileObject ply = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.ColorAndLightingWithNoTextures, fileToRender);
             //PlyFileObject ply = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, RenderingStyle.SkeletonColorAndLightingWithNoTextures, fileToRender);
@@ -39,6 +39,16 @@ namespace TestingProject
             //SkeletonTestObject testObject = new SkeletonTestObject(engine, ply);
             
             //engine.renderedObjects.Add(testObject);
+            int bread = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Textures\\bread.jpg");
+            int sand = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Textures\\beach_sand.jpg");
+            int concrete = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Textures\\concrete.jpg");
+            bread = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Textures\\bread.jpg");
+
+            engine.renderedObjects.Add(new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights, bread));
+            PlyFileCube cube = new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights, concrete);
+            cube.position = Matrix4.CreateTranslation(new Vector3(-3, 0, 0));
+            engine.renderedObjects.Add(cube);
+
             engine.renderedObjects.Add(new Square(engine));
             engine.game.RenderFrame += MoveLight;
             engine.Start();

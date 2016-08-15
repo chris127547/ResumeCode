@@ -21,9 +21,10 @@ namespace OpenGLEngine.RenderedObjects
         int textureID;
         public VertexList vertices;
         public int[] indices;
+        public Matrix4 position = Matrix4.Identity;
         Renderer renderer;
 
-        public PlyFileCube(Engine engine, float[] color, RenderingStyle style)
+        public PlyFileCube(Engine engine, float[] color, RenderingStyle style, int texture)
         {
             PlyFileParser objectData;
             if (style == RenderingStyle.ColorAndLightingWithNoTextures)
@@ -50,8 +51,8 @@ namespace OpenGLEngine.RenderedObjects
 
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
             {
-                textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
-                renderer = new LightingAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
+                //textureID = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
+                renderer = new LightingAndTextureRenderer(shapeData, indiceData, texture, objectData.indices.Length, engine);
             }
             else if (style == RenderingStyle.ColorAndLightingWithNoTextures)
             {
@@ -61,7 +62,7 @@ namespace OpenGLEngine.RenderedObjects
 
         public void Render()
         {
-            renderer.Render();
+            renderer.Render(position);
         }
 
 

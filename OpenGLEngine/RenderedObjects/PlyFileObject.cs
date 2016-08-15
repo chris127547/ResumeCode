@@ -65,7 +65,7 @@ namespace OpenGLEngine.RenderedObjects
         {
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
             {
-                textureID = TextureManager.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
+                textureID = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
                 renderer = new LightingAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
             }
             else if (style == RenderingStyle.ColorAndLightingWithNoTextures)
