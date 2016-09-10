@@ -89,6 +89,7 @@
     <Compile Include="RenderingEngine\Renderers\ColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\LightingAndColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\LightingAndTextureRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\LightingColorAndTextureRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\Renderer.cs" />
     <Compile Include="RenderingEngine\Renderers\SkeletonLightingAndColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\SkeletonLightingColorAndTextureRenderer.cs" />

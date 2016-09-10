@@ -218,8 +218,8 @@ namespace OpenGLEngine.RenderingEngine.Programs
         {
             string vertexshader =
                 " uniform mat4 u_MVPMatrix; \n"
-              + "uniform mat4 u_Bone[40]; \n"
-              + " uniform mat3 u_NormalBone[40]; \n"
+              + "uniform mat4 u_Bone[100]; \n"
+              + " uniform mat3 u_NormalBone[100]; \n"
 
               + "attribute vec4 a_position; \n"
               + "attribute vec4 a_color; \n"
@@ -284,8 +284,8 @@ namespace OpenGLEngine.RenderingEngine.Programs
         {
             string vertexshader =
                 " uniform mat4 u_MVPMatrix; \n"
-              + "uniform mat4 u_Bone[40]; \n"
-              + " uniform mat3 u_NormalBone[40]; \n"
+              + "uniform mat4 u_Bone[100]; \n"
+              + " uniform mat3 u_NormalBone[100]; \n"
 
               + "attribute vec4 a_position; \n"
               + "attribute vec4 a_color; \n"
