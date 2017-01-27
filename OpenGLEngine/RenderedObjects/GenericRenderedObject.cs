@@ -2,7 +2,6 @@
 using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Enums;
 using OpenGLEngine.RenderingEngine.Renderers;
-using OpenGLEngine.RenderingEngine.Textures;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderedObjects
 {
-    public class PlyFileObject : RenderedObject
+    public class GenericRenderedObject : RenderedObject
     {
         int shapeData;
         int indiceData;
@@ -22,23 +21,21 @@ namespace OpenGLEngine.RenderedObjects
         public int[] indices;
         Renderer renderer;
 
-        public PlyFileObject(Engine engine, float[] color, RenderingStyle style)
+        public GenericRenderedObject(Engine engine, float[] color, VertexList vertices, int[] indices, RenderingStyle style)
         {
-            CreatePlyFileObject(engine, color, style, null);
+            //CreatePlyFileObject(engine, color, style, null);
+            UpdateMesh(vertices, indices);
+            if(style == RenderingStyle.ColorAndLightingWithNoTextures)
+            {
+                renderer = new LightingAndColorRenderer(shapeData, indiceData, indices.Length, engine);
+            }
+            else if (style == RenderingStyle.SimpleSolidColors)
+            {
+                renderer = new ColorRenderer(shapeData, indiceData, indices.Length, engine);
+            }
         }
-
-        public PlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
-        {
-            CreatePlyFileObject(engine, color, style, filepath);
-        }
-
-        public PlyFileObject(Engine engine, RenderingStyle style, PlyFileParser objectData)
-        {
-            UpdateMesh(objectData.vertices, objectData.indices);
-            CreateRenderer(style, objectData, engine);
-        }
-
-        private void CreatePlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
+                
+        /*private void CreatePlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
         {
             PlyFileParser objectData;
             if (filepath == null)
@@ -59,9 +56,9 @@ namespace OpenGLEngine.RenderedObjects
             UpdateMesh(objectData.vertices, objectData.indices);
 
             CreateRenderer(style, objectData, engine);
-        }
+        }*/
 
-        private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine)
+        /*private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine)
         {
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
             {
@@ -71,12 +68,8 @@ namespace OpenGLEngine.RenderedObjects
             else if (style == RenderingStyle.ColorAndLightingWithNoTextures)
             {
                 renderer = new LightingAndColorRenderer(shapeData, indiceData, objectData.indices.Length, engine);
-            }
-            else if (style == RenderingStyle.SimpleSolidColors)
-            {
-                renderer = new ColorRenderer(shapeData, indiceData, objectData.indices.Length, engine);
-            }
-        }
+            }            
+        }*/
 
         public void Render()
         {
