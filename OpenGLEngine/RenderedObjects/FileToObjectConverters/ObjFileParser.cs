@@ -11,7 +11,9 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
     public class ObjFileParser
     {
         public int[] indices;
-        public VertexList vertices;        
+        public VertexList vertices;
+
+        bool hasNormals = false;
 
         public ObjFileParser(string filepath, float[] rgba)
         {
@@ -44,6 +46,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     }
                     else if (items[0] == "vn")
                     {
+                        hasNormals = true;
                         Vector3 normal = new Vector3();
                         normal.X = float.Parse(items[1]);
                         normal.Y = float.Parse(items[2]);
@@ -52,16 +55,30 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     }
                     else if (items[0] == "f")
                     {
-                        AddIndiceLine(items, positionIndices, normalIndices);
+                        if (hasNormals)
+                        {
+                            AddIndiceLineWithNormals(items, positionIndices, normalIndices);
+                        }
+                        else
+                        {
+                            AddIndiceLine(items, positionIndices);
+                        }                        
                     }
                 }
-
-                CreateSingleVertexListFromFaceData(positions, normals, positionIndices, normalIndices, rgba);
+                if (hasNormals)
+                {
+                    CreateSingleVertexListFromFaceDataWithNormals(positions, normals, positionIndices, normalIndices, rgba);
+                }
+                else
+                {
+                    CreateVertexListFromFaceData(positions, rgba);
+                    indices = positionIndices.ToArray();
+                }
             }
             int temp = 0;
         }
 
-        private void CreateSingleVertexListFromFaceData(List<Vector3> positions, List<Vector3> normals, List<int> positionIndices, List<int> normalIndices, float[] color)
+        private void CreateSingleVertexListFromFaceDataWithNormals(List<Vector3> positions, List<Vector3> normals, List<int> positionIndices, List<int> normalIndices, float[] color)
         {
             List<int> finalIndices = new List<int>();
             for (int i = 0; i < positionIndices.Count; i++)
@@ -79,7 +96,21 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
             indices = finalIndices.ToArray();
         }
 
-        private void AddIndiceLine(string[] items, List<int> positionIndices, List<int> normalIndices)
+        private void CreateVertexListFromFaceData(List<Vector3> positions, float[] color)
+        {
+            for(int i = 0; i < positions.Count; i++)
+            {
+                Vertex v = new Vertex();
+                v.position = new Vertex.Position(positions[i]);
+                if (color != null)
+                {
+                    v.AddColor(color);
+                }
+                vertices.Add(v);
+            } 
+        }
+
+        private void AddIndiceLineWithNormals(string[] items, List<int> positionIndices, List<int> normalIndices)
         {
             List<int> positionData = new List<int>();
             List<int> normalData = new List<int>();
@@ -104,6 +135,26 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                 normalIndices.Add(normalData[0]);
                 normalIndices.Add(normalData[2]);
                 normalIndices.Add(normalData[3]);
+            }
+        }
+
+        private void AddIndiceLine(string[] items, List<int> indiceList)
+        {
+            List<int> data = new List<int>();
+            for (int i = 1; i < items.Length; i++)
+            {
+                string facePoint = items[i];
+                string[] faceData = facePoint.Split('/');
+                data.Add(int.Parse(faceData[0]) - 1);
+            }
+            indiceList.Add(data[0]);
+            indiceList.Add(data[1]);
+            indiceList.Add(data[2]);
+            if (items.Length == 5)
+            {
+                indiceList.Add(data[0]);
+                indiceList.Add(data[2]);
+                indiceList.Add(data[3]);
             }
         }
     }
