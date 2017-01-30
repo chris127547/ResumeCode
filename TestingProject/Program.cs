@@ -22,14 +22,14 @@ namespace TestingProject
         static void Main(string[] args)
         {
             //oldTest();
-            //string shuttlePath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\Shuttle Rayder Sydonia.obj";
-            string testobj = "C:\\Users\\Chris\\Documents\\3D models\\normalcube.obj";
-            ObjFileParser parser = new ObjFileParser(testobj, new float[]{1,1,1,1});
+            string shuttlePath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\Shuttle Rayder Sydonia.obj";
+            //string testobj = "C:\\Users\\Chris\\Documents\\3D models\\normalcube.obj";
+            ObjFileParser parser = new ObjFileParser(shuttlePath, new float[]{1,1,1,1});
             //Console.ReadKey();
             engine = new Engine();
             engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
             light = new Light(new Vector3(-10, 0, 10));
-            GenericRenderedObject obj = new GenericRenderedObject(engine, new float[] { 1, 1, 1, 1 }, parser.vertices, parser.indices, RenderingStyle.SimpleSolidColors);
+            GenericRenderedObject obj = new GenericRenderedObject(engine, new float[] { 1, 1, 1, 1 }, parser.vertices, parser.indices, RenderingStyle.ColorAndLightingWithNoTextures);
             engine.renderedObjects.Add(obj);
             engine.game.RenderFrame += MoveLight;
             engine.Start();
