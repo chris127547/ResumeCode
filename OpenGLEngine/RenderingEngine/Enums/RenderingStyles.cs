@@ -10,7 +10,7 @@ namespace OpenGLEngine.RenderingEngine.Enums
     {
         SimpleSolidColors,
         SimpleTextureWithOptionalColor,
-        TextureOptionalColorAndLighting,
+        TextureColorAndLighting,
         TextureAndLightingWithNoColorHighlights,
         ColorAndLightingWithNoTextures,
         SkeletonColorAndLightingWithNoTextures

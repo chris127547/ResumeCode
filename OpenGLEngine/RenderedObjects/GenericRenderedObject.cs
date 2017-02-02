@@ -23,7 +23,6 @@ namespace OpenGLEngine.RenderedObjects
 
         public GenericRenderedObject(Engine engine, float[] color, VertexList vertices, int[] indices, RenderingStyle style)
         {
-            //CreatePlyFileObject(engine, color, style, null);
             UpdateMesh(vertices, indices);
             if(style == RenderingStyle.ColorAndLightingWithNoTextures)
             {
@@ -32,6 +31,24 @@ namespace OpenGLEngine.RenderedObjects
             else if (style == RenderingStyle.SimpleSolidColors)
             {
                 renderer = new ColorRenderer(shapeData, indiceData, indices.Length, engine);
+            }
+        }
+
+        public GenericRenderedObject(Engine engine, float[] color, VertexList vertices, int[] indices, int textureId, RenderingStyle style)
+        {
+            UpdateMesh(vertices, indices);
+            this.textureID = textureId;
+            if (style == RenderingStyle.ColorAndLightingWithNoTextures)
+            {
+                renderer = new LightingAndColorRenderer(shapeData, indiceData, indices.Length, engine);
+            }
+            else if (style == RenderingStyle.SimpleSolidColors)
+            {
+                renderer = new ColorRenderer(shapeData, indiceData, indices.Length, engine);
+            }
+            else if (style == RenderingStyle.TextureColorAndLighting)
+            {
+                renderer = new LightingColorAndTextureRenderer(shapeData, indiceData, textureID, indices.Length, engine);
             }
         }
                 
