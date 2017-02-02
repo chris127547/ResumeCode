@@ -68,6 +68,7 @@
     <Compile Include="RenderedObjects\FileToObjectConverters\Vertex.cs" />
     <Compile Include="RenderedObjects\FileToObjectConverters\VertexList.cs" />
     <Compile Include="RenderedObjects\GenericRenderedObject.cs" />
+    <Compile Include="RenderedObjects\ObjFileObject.cs" />
     <Compile Include="RenderedObjects\PlyFileCube.cs" />
     <Compile Include="RenderedObjects\PlyFileObject.cs" />
     <Compile Include="RenderedObjects\RenderedObject.cs" />
