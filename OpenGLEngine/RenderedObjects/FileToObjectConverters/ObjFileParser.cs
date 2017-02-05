@@ -10,11 +10,11 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
 {
     public class ObjFileParser
     {
-        public int[] indices;
-        //List<int[]> indiceSets;
         public VertexList vertices;
 
         public MtlFileParser material;
+
+        public List<Tuple<MtlFileParser.Material, int[]>> materialIndices;
 
         bool hasNormals = false;
         bool hasTextures = false;
@@ -34,11 +34,14 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                 List<int> positionIndices = new List<int>();
                 List<int> normalIndices = new List<int>();
                 List<int> textureIndices = new List<int>();
+                materialIndices = new List<Tuple<MtlFileParser.Material, int[]>>();
 
                 string[] lines = File.ReadLines(filepath, Encoding.ASCII).ToArray<string>();
                 vertices = new VertexList();
 
                 MtlFileParser.Material currentMaterial = null;
+
+                int lastMaterialIndex = 0;
 
                 foreach (string s in lines)
                 {
@@ -72,17 +75,14 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     {
                         if (hasNormals && hasTextures)
                         {
-                            //AddIndiceLineWithNormalsAndTextures(items, positionIndices, normalIndices, textureIndices);
                             AddVertexWithNormalsAndTextures(items, positions, normals, textureCoords, currentMaterial);
                         }
                         else if (hasNormals)
                         {
-                            //AddIndiceLineWithNormals(items, positionIndices, normalIndices);
                             AddVertexWithNormals(items, positions, normals, rgba);
                         }
                         else
                         {
-                            //AddIndiceLine(items, positionIndices);
                             AddVertex(items, positions, rgba);
                         }                        
                     }
@@ -94,45 +94,11 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     }
                     else if (items[0] == "usemtl")
                     {
+                        AddMaterialIndiceSet(currentMaterial, lastMaterialIndex);
                         currentMaterial = material.Materials[items[1]];
                     }
                 }
-                if (hasNormals && hasTextures)
-                {
-                    //CreateSingleVertexListFromFaceDataWithNormalsAndTextures(positions, normals, textureCoords, positionIndices, normalIndices, textureIndices,
-                        //currentMaterial);
-                    List<int> finalIndices = new List<int>();
-                    for (int i = 0; i < vertices.Count; i++)
-                    {
-                        finalIndices.Add(i);
-                    }
-                    indices = finalIndices.ToArray();
-                }
-                else if (hasNormals)
-                {
-                    //CreateSingleVertexListFromFaceDataWithNormals(positions, normals, positionIndices, normalIndices, rgba);
-                    List<int> finalIndices = new List<int>();
-                    for (int i = 0; i < vertices.Count; i++)
-                    {
-                        finalIndices.Add(i);
-                    }
-                    indices = finalIndices.ToArray();
-                }
-                else
-                {
-                    //CreateVertexListFromFaceData(positions, rgba);
-                    //indices = positionIndices.ToArray();
-
-                    List<int> finalIndices = new List<int>();
-                    for (int i = 0; i < vertices.Count; i++)
-                    {
-                        finalIndices.Add(i);
-                    }
-                    indices = finalIndices.ToArray();
-
-                    //int[] indices = positionIndices.ToArray();
-                    //indiceSets.Add(indices);
-                }
+                AddMaterialIndiceSet(currentMaterial, lastMaterialIndex);                             
             }
         }
 
@@ -251,150 +217,23 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                 Vertex v = new Vertex();
                 v.position = new Vertex.Position(positions[positionIndices[i]]);
                 v.normal = new Vertex.Normal(normals[normalIndices[i]]);
-                v.texture = new Vertex.Texture(textureCoords[textureIndices[i]].X * currentMaterial.Umax + currentMaterial.Umin,
-                    textureCoords[textureIndices[i]].Y * currentMaterial.Vmax + currentMaterial.Vmin);
+                v.texture = new Vertex.Texture(textureCoords[textureIndices[i]].X, textureCoords[textureIndices[i]].Y);
                 v.color = new Vertex.Color((float)currentMaterial.Color.R / 255, (float)currentMaterial.Color.G / 255,
                     (float)currentMaterial.Color.B / 255, (float)currentMaterial.Color.A / 255); 
                 vertices.Add(v);
             }
         }
 
-        private void CreateSingleVertexListFromFaceDataWithNormalsAndTextures(List<Vector3> positions, List<Vector3> normals, List<Vector2> textureCoords,
-            List<int> positionIndices, List<int> normalIndices, List<int> textureIndices, MtlFileParser.Material currentMaterial)
+        private void AddMaterialIndiceSet(MtlFileParser.Material currentMaterial, int lastMaterialIndex)
         {
-            List<int> finalIndices = new List<int>();
-            for (int i = 0; i < positionIndices.Count; i++)
+            if (currentMaterial != null)
             {
-                Vertex v = new Vertex();
-                v.position = new Vertex.Position(positions[positionIndices[i]]);
-                v.normal = new Vertex.Normal(normals[normalIndices[i]]);
-                v.texture = new Vertex.Texture(textureCoords[textureIndices[i]].X * currentMaterial.Umax + currentMaterial.Umin,
-                    textureCoords[textureIndices[i]].Y * currentMaterial.Vmax + currentMaterial.Vmin);
-                v.color = new Vertex.Color((float)currentMaterial.Color.R / 255, (float)currentMaterial.Color.G / 255,
-                    (float)currentMaterial.Color.B / 255, (float)currentMaterial.Color.A / 255); 
-                
-                vertices.Add(v);
-                finalIndices.Add(i);
-            }
-            indices = finalIndices.ToArray();
-        }        
-
-        private void CreateSingleVertexListFromFaceDataWithNormals(List<Vector3> positions, List<Vector3> normals, List<int> positionIndices,
-            List<int> normalIndices, float[] color)
-        {
-            List<int> finalIndices = new List<int>();
-            for (int i = 0; i < positionIndices.Count; i++)
-            {
-                Vertex v = new Vertex();
-                v.position = new Vertex.Position(positions[positionIndices[i]]);
-                v.normal = new Vertex.Normal(normals[normalIndices[i]]);
-                if (color != null)
+                List<int> currentIndices = new List<int>();
+                for (int i = lastMaterialIndex; i < vertices.Count; i++)
                 {
-                    v.color = new Vertex.Color(color[0], color[1], color[2], color[3]);
+                    currentIndices.Add(i);
                 }
-                vertices.Add(v);
-                finalIndices.Add(i);
-            }
-            indices = finalIndices.ToArray();
-            //int[] indices = finalIndices.ToArray();
-            //indiceSets.Add(indices);
-        }
-
-        private void CreateVertexListFromFaceData(List<Vector3> positions, float[] color)
-        {
-            for(int i = 0; i < positions.Count; i++)
-            {
-                Vertex v = new Vertex();
-                v.position = new Vertex.Position(positions[i]);
-                if (color != null)
-                {
-                    v.AddColor(color);
-                }
-                vertices.Add(v);
-            } 
-        }
-
-        private void AddIndiceLineWithNormalsAndTextures(string[] items, List<int> positionIndices, List<int> normalIndices, List<int> textureIndices)
-        {
-            List<int> positionData = new List<int>();
-            List<int> normalData = new List<int>();
-            List<int> textureData = new List<int>();
-            for (int i = 1; i < items.Length; i++)
-            {
-                string facePoint = items[i];
-                string[] faceData = facePoint.Split('/');
-                positionData.Add(int.Parse(faceData[0]) - 1);
-                textureData.Add(int.Parse(faceData[1]) - 1);
-                normalData.Add(int.Parse(faceData[2]) - 1);
-            }
-            positionIndices.Add(positionData[0]);
-            positionIndices.Add(positionData[1]);
-            positionIndices.Add(positionData[2]);
-            normalIndices.Add(normalData[0]);
-            normalIndices.Add(normalData[1]);
-            normalIndices.Add(normalData[2]);
-            textureIndices.Add(textureData[0]);
-            textureIndices.Add(textureData[1]);
-            textureIndices.Add(textureData[2]);
-            if (items.Length == 5)
-            {
-                positionIndices.Add(positionData[0]);
-                positionIndices.Add(positionData[2]);
-                positionIndices.Add(positionData[3]);
-                normalIndices.Add(normalData[0]);
-                normalIndices.Add(normalData[2]);
-                normalIndices.Add(normalData[3]);
-                textureIndices.Add(textureData[0]);
-                textureIndices.Add(textureData[2]);
-                textureIndices.Add(textureData[3]);
-            }
-        }
-
-        private void AddIndiceLineWithNormals(string[] items, List<int> positionIndices, List<int> normalIndices)
-        {
-            List<int> positionData = new List<int>();
-            List<int> normalData = new List<int>();
-            for (int i = 1; i < items.Length; i++)
-            {
-                string facePoint = items[i];
-                string[] faceData = facePoint.Split('/');
-                positionData.Add(int.Parse(faceData[0]) - 1);
-                normalData.Add(int.Parse(faceData[2]) - 1);
-            }
-            positionIndices.Add(positionData[0]);
-            positionIndices.Add(positionData[1]);
-            positionIndices.Add(positionData[2]);
-            normalIndices.Add(normalData[0]);
-            normalIndices.Add(normalData[1]);
-            normalIndices.Add(normalData[2]);
-            if (items.Length == 5)
-            {
-                positionIndices.Add(positionData[0]);
-                positionIndices.Add(positionData[2]);
-                positionIndices.Add(positionData[3]);
-                normalIndices.Add(normalData[0]);
-                normalIndices.Add(normalData[2]);
-                normalIndices.Add(normalData[3]);
-            }
-        }
-
-        private void AddIndiceLine(string[] items, List<int> indiceList)
-        {
-            List<int> data = new List<int>();
-            for (int i = 1; i < items.Length; i++)
-            {
-                string facePoint = items[i];
-                string[] faceData = facePoint.Split('/');
-                data.Add(int.Parse(faceData[0]) - 1);
-            }
-            indiceList.Add(data[0]);
-            indiceList.Add(data[1]);
-            indiceList.Add(data[2]);
-            if (items.Length == 5)
-            {
-                indiceList.Add(data[0]);
-                indiceList.Add(data[2]);
-                indiceList.Add(data[3]);
+                materialIndices.Add(new Tuple<MtlFileParser.Material, int[]>(currentMaterial, currentIndices.ToArray()));
             }
         }
     }

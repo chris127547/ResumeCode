@@ -12,7 +12,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
     public class MtlFileParser
     {
         public Dictionary<string, Material> Materials;
-        public Bitmap textureAtlas;
+        public string path;
 
         public MtlFileParser(string filepath)
         {
@@ -22,6 +22,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                 {
                     throw new Exception("An invalid file type was used to construct a ObjObject. Only correctly formatted .mtl files will work.");
                 }
+                path = filepath;
                 Materials = new Dictionary<string, Material>();
                 string[] lines = File.ReadLines(filepath, Encoding.ASCII).ToArray<string>();
                 List<string[]> currentMaterialArgs = new List<string[]>();
@@ -45,8 +46,6 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     }
                 }
                 if (currentMaterialArgs.Count > 0) { CreateMaterialFromArgs(currentMaterialArgs); }
-
-                CreateTextureAtlas(Materials.ToList(), Path.GetDirectoryName(filepath));
             }
         }        
 
@@ -77,75 +76,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
             material.Color = Color.FromArgb((int)(255 * alpha), (int)(255 * red), (int)(255 * green), (int)(255 * blue));
 
             Materials.Add(materialName, material);
-        }
-
-        private void CreateTextureAtlas(List<KeyValuePair<string, Material>> Materials, string path)
-        {
-            int width = 0, height = 0;
-            List<Bitmap> bitmaps = new List<Bitmap>();
-            foreach (KeyValuePair<string, Material> material in Materials)
-            {
-                if (material.Value.texturePath != "")
-                {
-                    Bitmap image = new Bitmap(path + "\\" + material.Value.texturePath);
-                    width += image.Width;
-                    if (image.Height > height) { height = image.Height; }
-                    bitmaps.Add(image);
-                }                
-            }
-            Bitmap atlas = new Bitmap(width + 1, height);
-            int Xpos = 0;
-            foreach (Bitmap map in bitmaps)
-            {
-                for (int i = Xpos; i < Xpos + map.Width; i++)
-                {
-                    for (int j = 0; j < map.Height; j++)
-                    {
-                        atlas.SetPixel(i, j, map.GetPixel(i - Xpos, j));
-                    }
-                }
-                Xpos += map.Width;
-            }
-            atlas.SetPixel(atlas.Width - 1, 0, Color.FromArgb(255, 255, 255, 255));
-            textureAtlas = atlas;
-
-            AssignMaterialUVs(bitmaps, Materials);
-            //FileStream stream = File.OpenWrite(path + "\\outputfile.jpeg");
-            //atlas.Save(stream, ImageFormat.Jpeg);
-            foreach (Bitmap bitmap in bitmaps)
-            {
-                bitmap.Dispose();
-            }
-        }
-
-        private void AssignMaterialUVs(List<Bitmap> bitmaps, List<KeyValuePair<string, Material>> Materials)
-        {
-            int mapIndex = 0;
-            float widthOffset = 0;
-            foreach (KeyValuePair<string, Material> material in Materials)
-            {
-                if (material.Value.texturePath != "")
-                {
-                    Bitmap map = bitmaps[mapIndex];
-                    float adjustedWidth = (float)map.Width / (float)textureAtlas.Width;
-                    float adjustedHeight = (float)map.Height / (float)textureAtlas.Height;
-                    material.Value.Umin = widthOffset;
-                    material.Value.Umax = widthOffset + adjustedWidth;
-                    material.Value.Vmin = 0;
-                    material.Value.Vmax = adjustedHeight;
-
-                    widthOffset += adjustedWidth;
-                    mapIndex++;
-                }
-                else
-                {
-                    material.Value.Umax = 1;
-                    material.Value.Umin = 1;
-                    material.Value.Vmax = 0;
-                    material.Value.Vmin = 0;
-                }
-            }
-        }
+        }        
 
         public class Material
         {
