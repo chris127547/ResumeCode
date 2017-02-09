@@ -1,6 +1,7 @@
 ﻿using OpenGLEngine.RenderedObjects.FileToObjectConverters;
 using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Renderers;
+using OpenTK;
 using OpenTK.Graphics.OpenGL4;
 using System;
 using System.Collections.Generic;
@@ -62,6 +63,14 @@ namespace OpenGLEngine.RenderedObjects
             foreach (Renderer r in renderers)
             {
                 r.Render();
+            }
+        }
+
+        public void Render(Matrix4 worldTransform)
+        {
+            foreach (Renderer r in renderers)
+            {
+                r.Render(worldTransform);
             }
         }
 

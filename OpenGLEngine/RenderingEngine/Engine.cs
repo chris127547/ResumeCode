@@ -21,10 +21,21 @@ namespace OpenGLEngine.RenderingEngine
         public ProgramList programList;
         public TextureManager textureManager;
         public float[] clearColor = new float[]{1, 1, 1, 1};
+
         public Engine()
         {
+            CreateEngine(new Camera());
+        }
+
+        public Engine(Camera camera)
+        {
+            CreateEngine(camera);
+        }
+
+        private void CreateEngine(Camera camera)
+        {
             game = new GameWindow();
-            camera = new Camera();
+            this.camera = camera;
             light = new Light(5, 25, 30);
             renderedObjects = new List<RenderedObject>();
             programList = new ProgramList();
