@@ -1,4 +1,5 @@
 ﻿using OpenGLEngine.RenderedObjects;
+using OpenGLEngine.RenderingEngine.Cameras;
 using OpenGLEngine.RenderingEngine.Programs;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenGLEngine.RenderingEngine.Cameras;
 
 namespace OpenGLEngine.RenderingEngine.Renderers
 {

@@ -75,7 +75,9 @@
     <Compile Include="RenderedObjects\Square.cs" />
     <Compile Include="RenderedObjects\TexturedBox.cs" />
     <Compile Include="RenderedObjects\TexturedBoxWithLighting.cs" />
-    <Compile Include="RenderingEngine\Camera.cs" />
+    <Compile Include="RenderingEngine\Cameras\Camera.cs" />
+    <Compile Include="RenderingEngine\Cameras\FixedCamera.cs" />
+    <Compile Include="RenderingEngine\Cameras\FreeCamera.cs" />
     <Compile Include="RenderingEngine\Engine.cs" />
     <Compile Include="RenderingEngine\Enums\RenderingStyles.cs" />
     <Compile Include="RenderingEngine\GLErrorHelper.cs" />

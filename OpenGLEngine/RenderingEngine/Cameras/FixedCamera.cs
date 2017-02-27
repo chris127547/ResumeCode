@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGLEngine.RenderingEngine
+namespace OpenGLEngine.RenderingEngine.Cameras
 {
-    public class Camera
+    public class FixedCamera : Camera
     {
         private Matrix4 projection;
         public Matrix4 ProjectionMatrix { get { return projection; } }
@@ -18,12 +18,12 @@ namespace OpenGLEngine.RenderingEngine
         private float transX = 0, transY = 0, transZ = 0;
         private float leftright = 0, updown = 0;
 
-        public Camera()
+        public FixedCamera()
         {
             projection = Matrix4.CreatePerspectiveOffCenter(-1, 1, -1, 1, 2, 100);
             view = Matrix4.LookAt(new Vector3(0, 0, 0.1f), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
         }
-        public Camera(Matrix4 projection)
+        public FixedCamera(Matrix4 projection)
         {
             this.projection = projection;
             view = Matrix4.LookAt(new Vector3(4, 3, 3), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
@@ -188,6 +188,11 @@ namespace OpenGLEngine.RenderingEngine
             }
             Matrix4 rMatrix = new Matrix4(rm[0], rm[1], rm[2], rm[3], rm[4], rm[5], rm[6], rm[7], rm[8], rm[9], rm[10], rm[11], rm[12], rm[13], rm[14], rm[15]);
             return rMatrix * matrix;
+        }
+
+        public void OnUpdateFrame()
+        {
+            
         }
     }
 }

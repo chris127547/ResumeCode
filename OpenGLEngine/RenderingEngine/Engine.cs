@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenGLEngine.RenderingEngine.Textures;
+using OpenGLEngine.RenderingEngine.Cameras;
 
 namespace OpenGLEngine.RenderingEngine
 {
@@ -24,7 +25,7 @@ namespace OpenGLEngine.RenderingEngine
 
         public Engine()
         {
-            CreateEngine(new Camera());
+            CreateEngine(new FreeCamera());
         }
 
         public Engine(Camera camera)
@@ -86,38 +87,7 @@ namespace OpenGLEngine.RenderingEngine
             }
             else
             {
-                if (state[Key.Up])
-                {
-                    camera.LookUpOrDown(true);
-                }
-                if (state[Key.Down])
-                {
-                    camera.LookUpOrDown(false);
-                }
-                if (state[Key.Left])
-                {
-                    camera.Turn(false);
-                }
-                if (state[Key.Right])
-                {
-                    camera.Turn(true);
-                }
-                if (state[Key.W])
-                {
-                    camera.MoveForward();
-                }
-                if (state[Key.S])
-                {
-                    camera.MoveBackward();
-                }
-                if (state[Key.A])
-                {
-                    camera.StrafeLeft();
-                }
-                if (state[Key.D])
-                {
-                    camera.StrafeRight();
-                }
+                camera.OnUpdateFrame();                
             }
         }
         private void onRenderFrame(object sender, EventArgs e)

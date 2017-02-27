@@ -22,23 +22,13 @@ namespace TestingProject
         static void Main(string[] args)
         {
             //oldTest();
-            string materialPath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\Shuttle_Rayder_Sydonia.mtl";
 
-            //MtlFileParser mtlParser = new MtlFileParser(materialPath);
-
-            //string shuttlePath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\Shuttle Rayder Sydonia.obj";
-            string shuttlePath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\scaledShuttle.obj";
-            string testobj = "C:\\Users\\Chris\\Documents\\3D models\\testcube.obj";
-            ObjFileParser parser = new ObjFileParser(shuttlePath, new float[]{1,1,1,1});
-            //Console.ReadKey();
             engine = new Engine();
             engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
             light = new Light(new Vector3(-10, 0, 10));
-            //GenericRenderedObject obj = new GenericRenderedObject(engine, new float[] { 1, 1, 1, 1 }, parser.vertices, parser.indices, RenderingStyle.ColorAndLightingWithNoTextures);
-            //int texId = engine.textureManager.LoadTexture(parser.material.textureAtlas, "test");
-            //GenericRenderedObject obj = new GenericRenderedObject(engine, new float[] { 1, 1, 1, 1 }, parser.vertices, parser.indices, texId, RenderingStyle.TextureColorAndLighting);
-            ObjFileObject obj = new ObjFileObject(engine, shuttlePath);
-            engine.renderedObjects.Add(obj);
+
+            //engine.renderedObjects.Add(new Square(engine));
+            engine.renderedObjects.Add(new PlyFileObject(engine, new float[]{1,1,1,1}, RenderingStyle.ColorAndLightingWithNoTextures, fileToRender));
             engine.game.RenderFrame += MoveLight;
             engine.Start();
         }
@@ -74,6 +64,29 @@ namespace TestingProject
             engine.renderedObjects.Add(cube);
 
             engine.renderedObjects.Add(new Square(engine));
+            engine.game.RenderFrame += MoveLight;
+            engine.Start();
+        }
+
+        private static void ShipTest()
+        {
+            string materialPath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\Shuttle_Rayder_Sydonia.mtl";
+
+            //MtlFileParser mtlParser = new MtlFileParser(materialPath);
+
+            //string shuttlePath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\Shuttle Rayder Sydonia.obj";
+            string shuttlePath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\scaledShuttle.obj";
+            string testobj = "C:\\Users\\Chris\\Documents\\3D models\\testcube.obj";
+            ObjFileParser parser = new ObjFileParser(shuttlePath, new float[] { 1, 1, 1, 1 });
+            //Console.ReadKey();
+            engine = new Engine();
+            engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
+            light = new Light(new Vector3(-10, 0, 10));
+            //GenericRenderedObject obj = new GenericRenderedObject(engine, new float[] { 1, 1, 1, 1 }, parser.vertices, parser.indices, RenderingStyle.ColorAndLightingWithNoTextures);
+            //int texId = engine.textureManager.LoadTexture(parser.material.textureAtlas, "test");
+            //GenericRenderedObject obj = new GenericRenderedObject(engine, new float[] { 1, 1, 1, 1 }, parser.vertices, parser.indices, texId, RenderingStyle.TextureColorAndLighting);
+            ObjFileObject obj = new ObjFileObject(engine, shuttlePath);
+            engine.renderedObjects.Add(obj);
             engine.game.RenderFrame += MoveLight;
             engine.Start();
         }
