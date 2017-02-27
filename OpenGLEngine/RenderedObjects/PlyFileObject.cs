@@ -24,12 +24,12 @@ namespace OpenGLEngine.RenderedObjects
 
         public PlyFileObject(Engine engine, float[] color, RenderingStyle style)
         {
-            CreatePlyFileObject(engine, color, style, null);
+            CreatePlyFileObject(engine, color, style, new Vector3(1,1,1), null);
         }
 
         public PlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
         {
-            CreatePlyFileObject(engine, color, style, filepath);
+            CreatePlyFileObject(engine, color, style, new Vector3(1,1,1), filepath);
         }
 
         public PlyFileObject(Engine engine, RenderingStyle style, PlyFileParser objectData)
@@ -38,7 +38,12 @@ namespace OpenGLEngine.RenderedObjects
             CreateRenderer(style, objectData, engine);
         }
 
-        private void CreatePlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
+        public PlyFileObject(Engine engine, float[] color, Vector3 scale, RenderingStyle style, string filepath)
+        {
+            CreatePlyFileObject(engine, color, style, scale, filepath);
+        }
+
+        private void CreatePlyFileObject(Engine engine, float[] color, RenderingStyle style, Vector3 scale, string filepath)
         {
             PlyFileParser objectData;
             if (filepath == null)
@@ -56,6 +61,12 @@ namespace OpenGLEngine.RenderedObjects
             {
                 objectData = new PlyFileParser(filepath, color);
             }
+
+            foreach (Vertex v in objectData.vertices)
+            {
+                v.position.vector *= scale;
+            }
+
             UpdateMesh(objectData.vertices, objectData.indices);
 
             CreateRenderer(style, objectData, engine);

@@ -28,7 +28,7 @@ namespace TestingProject
             light = new Light(new Vector3(-10, 0, 10));
 
             //engine.renderedObjects.Add(new Square(engine));
-            engine.renderedObjects.Add(new PlyFileObject(engine, new float[]{1,1,1,1}, RenderingStyle.ColorAndLightingWithNoTextures, fileToRender));
+            engine.renderedObjects.Add(new PlyFileObject(engine, new float[]{1,1,1,1}, new Vector3(2,3,1.5f), RenderingStyle.ColorAndLightingWithNoTextures, fileToRender));
             engine.game.RenderFrame += MoveLight;
             engine.Start();
         }
