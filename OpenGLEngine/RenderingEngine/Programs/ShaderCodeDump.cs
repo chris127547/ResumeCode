@@ -15,12 +15,19 @@ namespace OpenGLEngine.RenderingEngine.Programs
                             "uniform mat4 u_MVPMatrix;      \n"
                           + "attribute vec4 a_Position;     \n"
                           + "attribute vec4 a_Color;        \n"
+
+                          + "const float C = 1; \n"
+                          + "const float Far = 100000000; \n"
+
                           + "varying vec4 v_Color;          \n"
                           + "void main()                    \n"
                           + "{                              \n"
                           + "   v_Color = a_Color;          \n"
                           + "   gl_Position = u_MVPMatrix   \n"
                           + "               * a_Position;   \n"
+
+                          + "     gl_Position.z = 2.0*log(gl_Position.w*C + 1)/log(Far*C + 1) - 1; \n"
+                          + "     gl_Position.z *= gl_Position.w; \n"
                           + "}                              \n";
             return vertexshader;
         }
@@ -42,12 +49,20 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + "attribute vec4 a_position; \n"
                 + "attribute vec4 a_color; \n"
                 + "attribute vec2 a_texcord; \n"
+
+                + "const float C = 1; \n"
+                + "const float Far = 100000000; \n"
+
                 + "varying vec4 v_color; \n"
                 + "varying vec2 v_texcord; \n"
                 + "void main(){ \n"
                 + "v_color = a_color; \n"
                 + "v_texcord = a_texcord; \n"
-                + "gl_Position = u_mvpmatrix*a_position;} \n";
+                + "gl_Position = u_mvpmatrix*a_position; \n"
+
+                + "gl_Position.z = 2.0*log(gl_Position.w*C + 1)/log(Far*C + 1) - 1; \n"
+                + "gl_Position.z *= gl_Position.w; \n"
+                + "}";
             return vertexshader;
         }
         public static string GetSimpleTextureFragmentShader()
@@ -71,6 +86,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec3 a_normal;       \n"
               + "attribute vec2 a_texcord; \n"
 
+              + "const float C = 1; \n"
+              + "const float Far = 100000000; \n"
+
               + " varying vec4 v_position; \n"
               + " varying vec4 v_color; \n"
               + " varying vec2 v_texcord; \n"
@@ -84,6 +102,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "     v_color = a_color; \n"
 
               + "     gl_Position = u_MVPMatrix * a_position; \n"
+
+              + "     gl_Position.z = 2.0*log(gl_Position.w*C + 1)/log(Far*C + 1) - 1; \n"
+              + "     gl_Position.z *= gl_Position.w; \n"
               + " }";
             return vertexshader;
         }
@@ -125,6 +146,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec3 a_normal;       \n"
               + "attribute vec2 a_texcord; \n"
 
+              + "const float C = 1; \n"
+              + "const float Far = 100000000; \n"
+
               + " varying vec4 v_position; \n"
               + " varying vec2 v_texcord; \n"
               + " varying vec3 v_normal; \n"
@@ -136,6 +160,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "     v_normal = a_normal; \n"
 
               + "     gl_Position = u_MVPMatrix * a_position; \n"
+
+              + "     gl_Position.z = 2.0*log(gl_Position.w*C + 1)/log(Far*C + 1) - 1; \n"
+              + "     gl_Position.z *= gl_Position.w; \n"
               + " }";
             return vertexshader;
         }
@@ -175,6 +202,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec4 a_color; \n"
               + "attribute vec3 a_normal;       \n"
 
+              + "const float C = 1; \n"
+              + "const float Far = 100000000; \n"
+
               + " varying vec4 v_position; \n"
               + " varying vec4 v_color; \n"
               + " varying vec3 v_normal; \n"
@@ -186,6 +216,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "     v_color = a_color; \n"
 
               + "     gl_Position = u_MVPMatrix * a_position; \n"
+
+              + "     gl_Position.z = 2.0*log(gl_Position.w*C + 1)/log(Far*C + 1) - 1; \n"
+              + "     gl_Position.z *= gl_Position.w; \n"
               + " }";
             return vertexshader;
         }
@@ -227,6 +260,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec2 a_boneIndex; \n"
               + "attribute vec2 a_boneWeight; \n"
 
+              + "const float C = 1; \n"
+              + "const float Far = 100000000; \n"
+
               + " varying vec4 v_position; \n"
               + " varying vec4 v_color; \n"
               + " varying vec3 v_normal; \n"
@@ -249,6 +285,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "     v_boneWeight = a_boneWeight; \n"
 
               + "     gl_Position = u_MVPMatrix * vec4(v_position.xyz, 1); \n"
+
+              + "     gl_Position.z = 2.0*log(gl_Position.w*C + 1)/log(Far*C + 1) - 1; \n"
+              + "     gl_Position.z *= gl_Position.w; \n"
               + " }";
             return vertexshader;
         }
@@ -294,6 +333,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec2 a_boneWeight; \n"
               + "attribute vec2 a_texcord; \n"
 
+              + "const float C = 1; \n"
+              + "const float Far = 100000000; \n"
+
               + " varying vec4 v_position; \n"
               + " varying vec4 v_color; \n"
               + " varying vec3 v_normal; \n"
@@ -318,6 +360,9 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "     v_texcord = a_texcord; \n"
 
               + "     gl_Position = u_MVPMatrix * vec4(v_position.xyz, 1); \n"
+
+              + "     gl_Position.z = 2.0*log(gl_Position.w*C + 1)/log(Far*C + 1) - 1; \n"
+              + "     gl_Position.z *= gl_Position.w; \n"
               + " }";
             return vertexshader;
         }

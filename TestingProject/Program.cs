@@ -1,6 +1,7 @@
 ﻿using OpenGLEngine.RenderedObjects;
 using OpenGLEngine.RenderedObjects.FileToObjectConverters;
 using OpenGLEngine.RenderingEngine;
+using OpenGLEngine.RenderingEngine.Cameras;
 using OpenGLEngine.RenderingEngine.Enums;
 using OpenTK;
 using System;
@@ -25,10 +26,18 @@ namespace TestingProject
 
             engine = new Engine();
             engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
-            light = new Light(new Vector3(-10, 0, 10));
+            light = new Light(new Vector3(-10, 10000, 10));
+
+            FreeCamera camera = new FreeCamera(Matrix4.CreatePerspectiveOffCenter(-1, 1, -1, 1, 2, 100000));
+            camera.setPosition(Matrix4.LookAt(new Vector3(4000, 3000, 3000), new Vector3(0, 0, 0), new Vector3(0, 1, 0)));
+            engine.camera = camera;
 
             //engine.renderedObjects.Add(new Square(engine));
             engine.renderedObjects.Add(new PlyFileObject(engine, new float[]{1,1,1,1}, new Vector3(2,3,1.5f), RenderingStyle.ColorAndLightingWithNoTextures, fileToRender));
+
+            PlyFileObject distanceTest = new PlyFileObject(engine, new float[] { 1, 0, 0, 1 }, new Vector3(1000, 1000, 2000), RenderingStyle.ColorAndLightingWithNoTextures, fileToRender);
+            engine.renderedObjects.Add(distanceTest);            
+
             engine.game.RenderFrame += MoveLight;
             engine.Start();
         }
