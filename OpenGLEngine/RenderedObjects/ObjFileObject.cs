@@ -22,7 +22,17 @@ namespace OpenGLEngine.RenderedObjects
 
         public ObjFileObject(Engine engine, string filePath)
         {
-            ObjFileParser objectData = new ObjFileParser(filePath, new float[] { 1, 1, 1, 1 });
+            CreateObjFileObject(engine, filePath, new Vector3(1, 1, 1));
+        }
+
+        public ObjFileObject(Engine engine, string filePath, Vector3 scale)
+        {
+            CreateObjFileObject(engine, filePath, scale);
+        }
+
+        private void CreateObjFileObject(Engine engine, string filePath, Vector3 scale)
+        {
+            ObjFileParser objectData = new ObjFileParser(filePath, new float[] { 1, 1, 1, 1 }, scale);
 
             float[] vertices = objectData.vertices.GetAvailableShapeData();
 
@@ -43,20 +53,20 @@ namespace OpenGLEngine.RenderedObjects
                 {
                     texId = LoadEmptyTexture(engine);
                 }
-                
+
                 int[] indices = set.Item2;
 
                 int indiceData = GL.GenBuffer();
                 GL.BindBuffer(BufferTarget.ElementArrayBuffer, indiceData);
                 GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indices.Length * sizeof(int)), indices, BufferUsageHint.StaticDraw);
 
-                
+
                 indiceDataSets.Add(indiceData);
 
                 Renderer renderer = new LightingColorAndTextureRenderer(shapeData, indiceData, texId, indices.Length, engine);
                 renderers.Add(renderer);
             }
-        }        
+        }
 
         public void Render()
         {

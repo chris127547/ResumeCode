@@ -19,7 +19,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
         bool hasNormals = false;
         bool hasTextures = false;
 
-        public ObjFileParser(string filepath, float[] rgba)
+        public ObjFileParser(string filepath, float[] rgba, Vector3 scale)
         {
             if (File.Exists(filepath))
             {
@@ -98,7 +98,12 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                         currentMaterial = material.Materials[items[1]];
                     }
                 }
-                AddMaterialIndiceSet(currentMaterial, lastMaterialIndex);                             
+                AddMaterialIndiceSet(currentMaterial, lastMaterialIndex);
+
+                foreach (Vertex v in vertices)
+                {
+                    v.position.vector *= scale;
+                }
             }
         }
 
