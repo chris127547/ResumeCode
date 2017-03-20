@@ -45,7 +45,15 @@ namespace OpenGLEngine.RenderedObjects
                 int texId;
                 if (set.Item1.texturePath != "")
                 {
-                    string fullTexturePath = Path.GetDirectoryName(objectData.material.path) + "\\" + set.Item1.texturePath;
+                    string fullTexturePath;
+                    if (set.Item1.texturePath.Substring(0, 3) == "C:\\")
+                    {
+                        fullTexturePath = set.Item1.texturePath;
+                    }
+                    else
+                    {
+                        fullTexturePath = Path.GetDirectoryName(objectData.material.path) + "\\" + set.Item1.texturePath;
+                    }
                     texId = engine.textureManager.LoadTexture(fullTexturePath);
                     textureIds.Add(texId);
                 }

@@ -62,7 +62,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                 else if (arg[0] == "Ks") { /*Not supporting specular color either*/}
                 else if (arg[0] == "d") { alpha = float.Parse(arg[1]); }
                 else if (arg[0] == "Tr") { alpha = 1 - float.Parse(arg[1]); }
-                else if (arg[0] == "map_Kd") { texturePath = arg[1]; }
+                else if (arg[0] == "map_Kd") { texturePath = CorrectSplitsInTexturePaths(arg); }
             }
 
             if (materialName == "")
@@ -76,7 +76,17 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
             material.Color = Color.FromArgb((int)(255 * alpha), (int)(255 * red), (int)(255 * green), (int)(255 * blue));
 
             Materials.Add(materialName, material);
-        }        
+        }
+
+        private string CorrectSplitsInTexturePaths(string[] args)
+        {
+            string retval = args[1];
+            for (int i = 2; i < args.Length; i++)
+            {
+                retval += " " + args[i];
+            }
+            return retval;
+        }
 
         public class Material
         {
