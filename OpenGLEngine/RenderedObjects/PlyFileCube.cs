@@ -29,11 +29,11 @@ namespace OpenGLEngine.RenderedObjects
             PlyFileParser objectData;
             if (style == RenderingStyle.ColorAndLightingWithNoTextures)
             {
-                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply", color);
+                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply", color, new Vector3(1));
             }
             else
             {
-                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\texturedCube.ply", null);
+                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\texturedCube.ply", null, new Vector3(1));
             }
 
             this.vertices = objectData.vertices;

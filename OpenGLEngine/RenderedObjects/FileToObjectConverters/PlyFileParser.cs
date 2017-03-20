@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,7 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
         public int[] indices;
         public VertexList vertices;
 
-        public PlyFileParser(string filepath, float[] rgba)
+        public PlyFileParser(string filepath, float[] rgba, Vector3 scale)
         {
             if (File.Exists(filepath))
             {
@@ -72,6 +73,11 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                     }
                 }
                 indices = indiceList.ToArray<int>();
+
+                foreach (Vertex v in vertices)
+                {
+                    v.position.vector *= scale;
+                }
             }
             else
             {

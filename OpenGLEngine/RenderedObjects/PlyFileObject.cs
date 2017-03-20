@@ -24,60 +24,75 @@ namespace OpenGLEngine.RenderedObjects
 
         public PlyFileObject(Engine engine, float[] color, RenderingStyle style)
         {
-            CreatePlyFileObject(engine, color, style, new Vector3(1,1,1), null);
+            CreatePlyFileObject(engine, color, style, new Vector3(1,1,1), null, null);
         }
 
         public PlyFileObject(Engine engine, float[] color, RenderingStyle style, string filepath)
         {
-            CreatePlyFileObject(engine, color, style, new Vector3(1,1,1), filepath);
+            CreatePlyFileObject(engine, color, style, new Vector3(1,1,1), filepath, null);
         }
 
         public PlyFileObject(Engine engine, RenderingStyle style, PlyFileParser objectData)
         {
             UpdateMesh(objectData.vertices, objectData.indices);
-            CreateRenderer(style, objectData, engine);
+            CreateRenderer(style, objectData, engine, null);
         }
 
         public PlyFileObject(Engine engine, float[] color, Vector3 scale, RenderingStyle style, string filepath)
         {
-            CreatePlyFileObject(engine, color, style, scale, filepath);
+            CreatePlyFileObject(engine, color, style, scale, filepath, null);
         }
 
-        private void CreatePlyFileObject(Engine engine, float[] color, RenderingStyle style, Vector3 scale, string filepath)
+        public PlyFileObject(Engine engine, float[] color, Vector3 scale, RenderingStyle style, string filepath, string texturePath)
+        {
+            CreatePlyFileObject(engine, color, style, scale, filepath, texturePath);
+        }
+
+        private void CreatePlyFileObject(Engine engine, float[] color, RenderingStyle style, Vector3 scale, string filepath, string texturePath)
         {
             PlyFileParser objectData;
             if (filepath == null)
             {
                 if (style == RenderingStyle.ColorAndLightingWithNoTextures)
                 {
-                    objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply", color);
+                    objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply", color, scale);
                 }
                 else
                 {
-                    objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", null);
+                    objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", null, scale);
                 }
             }
             else
             {
-                objectData = new PlyFileParser(filepath, color);
-            }
-
-            foreach (Vertex v in objectData.vertices)
-            {
-                v.position.vector *= scale;
-            }
+                objectData = new PlyFileParser(filepath, color, scale);
+            }            
 
             UpdateMesh(objectData.vertices, objectData.indices);
 
-            CreateRenderer(style, objectData, engine);
+            CreateRenderer(style, objectData, engine, texturePath);
         }
 
-        private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine)
+        private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine, string texturePath)
         {
-            if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
+            if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights || style == RenderingStyle.TextureColorAndLighting)
             {
-                textureID = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
-                renderer = new LightingAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
+                if (texturePath == null)
+                {
+                    textureID = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
+                }
+                else
+                {
+                    textureID = engine.LoadTexture(texturePath);
+                }
+
+                if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
+                {
+                    renderer = new LightingAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
+                }
+                else
+                {
+                    renderer = new LightingColorAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
+                }                
             }
             else if (style == RenderingStyle.ColorAndLightingWithNoTextures)
             {
