@@ -73,6 +73,10 @@ namespace OpenGLEngine.RenderedObjects.FileToObjectConverters
                 }
                 indices = indiceList.ToArray<int>();
             }
+            else
+            {
+                throw new Exception("File was not found.");
+            }
         }
     }
 }
