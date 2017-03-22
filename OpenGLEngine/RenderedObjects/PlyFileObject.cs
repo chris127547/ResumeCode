@@ -74,7 +74,8 @@ namespace OpenGLEngine.RenderedObjects
 
         private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine, string texturePath)
         {
-            if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights || style == RenderingStyle.TextureColorAndLighting)
+            if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights || style == RenderingStyle.TextureColorAndLighting
+                || style == RenderingStyle.SimpleTextureWithColor)
             {
                 if (texturePath == null)
                 {
@@ -89,10 +90,14 @@ namespace OpenGLEngine.RenderedObjects
                 {
                     renderer = new LightingAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
                 }
-                else
+                else if(style == RenderingStyle.TextureColorAndLighting)
                 {
                     renderer = new LightingColorAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
-                }                
+                }
+                else
+                {
+                    renderer = new TextureAndColorRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
+                }              
             }
             else if (style == RenderingStyle.ColorAndLightingWithNoTextures)
             {

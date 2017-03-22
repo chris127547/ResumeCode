@@ -9,7 +9,7 @@ namespace OpenGLEngine.RenderingEngine.Enums
     public enum RenderingStyle
     {
         SimpleSolidColors,
-        SimpleTextureWithOptionalColor,
+        SimpleTextureWithColor,
         TextureColorAndLighting,
         TextureAndLightingWithNoColorHighlights,
         ColorAndLightingWithNoTextures,

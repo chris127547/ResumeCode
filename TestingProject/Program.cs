@@ -23,7 +23,23 @@ namespace TestingProject
         static void Main(string[] args)
         {
             //oldTest();
+            //ScalingTest();
+            engine = new Engine();
+            engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
 
+            FreeCamera camera = new FreeCamera(Matrix4.CreatePerspectiveOffCenter(-1, 1, -1, 1, 2, 100000));
+            camera.setPosition(Matrix4.LookAt(new Vector3(4000, 3000, 3000), new Vector3(0, 0, 0), new Vector3(0, 1, 0)));
+            engine.camera = camera;
+
+            string modelPath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\textureSquare.ply";
+            string texturePath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\9707.jpg";
+            PlyFileObject f = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.SimpleTextureWithColor, modelPath, texturePath);
+            engine.renderedObjects.Add(f);//Note model is on side you musst look down and move back to see it
+            engine.Start();
+        }
+
+        private static void ScalingTest()
+        {
             engine = new Engine();
             engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
             light = new Light(new Vector3(-10, 10000, 10));
@@ -33,10 +49,10 @@ namespace TestingProject
             engine.camera = camera;
 
             //engine.renderedObjects.Add(new Square(engine));
-            engine.renderedObjects.Add(new PlyFileObject(engine, new float[]{1,1,1,1}, new Vector3(2,3,1.5f), RenderingStyle.ColorAndLightingWithNoTextures, fileToRender));
+            engine.renderedObjects.Add(new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(2, 3, 1.5f), RenderingStyle.ColorAndLightingWithNoTextures, fileToRender));
 
             PlyFileObject distanceTest = new PlyFileObject(engine, new float[] { 1, 0, 0, 1 }, new Vector3(1000, 1000, 2000), RenderingStyle.ColorAndLightingWithNoTextures, fileToRender);
-            engine.renderedObjects.Add(distanceTest);            
+            engine.renderedObjects.Add(distanceTest);
 
             engine.game.RenderFrame += MoveLight;
             engine.Start();

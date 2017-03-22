@@ -100,6 +100,7 @@
     <Compile Include="RenderingEngine\Renderers\SkeletonLightingAndColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\SkeletonLightingColorAndTextureRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\SkeletonRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\TextureAndColorRenderer.cs" />
     <Compile Include="RenderingEngine\Textures\TextureManager.cs" />
   </ItemGroup>
   <ItemGroup>
