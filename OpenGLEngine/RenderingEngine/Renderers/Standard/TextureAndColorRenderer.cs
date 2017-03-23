@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGLEngine.RenderingEngine.Renderers
+namespace OpenGLEngine.RenderingEngine.Renderers.Standard
 {
     class TextureAndColorRenderer : Renderer
     {

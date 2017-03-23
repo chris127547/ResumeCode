@@ -16,7 +16,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                           + "attribute vec4 a_Position;     \n"
                           + "attribute vec4 a_Color;        \n"
 
-                          + "const float C = 1; \n"
+                          + "const float C = .01; \n"
                           + "const float Far = 100000000; \n"
 
                           + "varying vec4 v_Color;          \n"
@@ -50,7 +50,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + "attribute vec4 a_color; \n"
                 + "attribute vec2 a_texcord; \n"
 
-                + "const float C = 1; \n"
+                + "const float C = .01; \n"
                 + "const float Far = 100000000; \n"
 
                 + "varying vec4 v_color; \n"
@@ -86,7 +86,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec3 a_normal;       \n"
               + "attribute vec2 a_texcord; \n"
 
-              + "const float C = 1; \n"
+              + "const float C = .01; \n"
               + "const float Far = 100000000; \n"
 
               + " varying vec4 v_position; \n"
@@ -146,7 +146,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec3 a_normal;       \n"
               + "attribute vec2 a_texcord; \n"
 
-              + "const float C = 1; \n"
+              + "const float C = .01; \n"
               + "const float Far = 100000000; \n"
 
               + " varying vec4 v_position; \n"
@@ -202,7 +202,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec4 a_color; \n"
               + "attribute vec3 a_normal;       \n"
 
-              + "const float C = 1; \n"
+              + "const float C = .01; \n"
               + "const float Far = 100000000; \n"
 
               + " varying vec4 v_position; \n"
@@ -260,7 +260,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec2 a_boneIndex; \n"
               + "attribute vec2 a_boneWeight; \n"
 
-              + "const float C = 1; \n"
+              + "const float C = .01; \n"
               + "const float Far = 100000000; \n"
 
               + " varying vec4 v_position; \n"
@@ -333,7 +333,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
               + "attribute vec2 a_boneWeight; \n"
               + "attribute vec2 a_texcord; \n"
 
-              + "const float C = 1; \n"
+              + "const float C = .01; \n"
               + "const float Far = 100000000; \n"
 
               + " varying vec4 v_position; \n"

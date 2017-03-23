@@ -31,9 +31,9 @@ namespace TestingProject
             camera.setPosition(Matrix4.LookAt(new Vector3(4000, 3000, 3000), new Vector3(0, 0, 0), new Vector3(0, 1, 0)));
             engine.camera = camera;
 
-            string modelPath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\textureSquare.ply";
+            string modelPath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\textureZSquare.ply";
             string texturePath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\9707.jpg";
-            PlyFileObject f = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.SimpleTextureWithColor, modelPath, texturePath);
+            PlyFileObject f = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath);
             engine.renderedObjects.Add(f);//Note model is on side you musst look down and move back to see it
             engine.Start();
         }

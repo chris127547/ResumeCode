@@ -2,6 +2,7 @@
 using OpenGLEngine.RenderedObjects.FileToObjectConverters;
 using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Renderers;
+using OpenGLEngine.RenderingEngine.Renderers.Skeleton;
 using OpenGLEngine.RenderingEngine.Textures;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;

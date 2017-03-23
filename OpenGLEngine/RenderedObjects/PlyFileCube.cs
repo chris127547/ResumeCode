@@ -3,6 +3,7 @@ using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Enums;
 using OpenGLEngine.RenderingEngine.Programs;
 using OpenGLEngine.RenderingEngine.Renderers;
+using OpenGLEngine.RenderingEngine.Renderers.Standard;
 using OpenGLEngine.RenderingEngine.Textures;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;

@@ -13,6 +13,7 @@ namespace OpenGLEngine.RenderingEngine.Enums
         TextureColorAndLighting,
         TextureAndLightingWithNoColorHighlights,
         ColorAndLightingWithNoTextures,
-        SkeletonColorAndLightingWithNoTextures
+        SkeletonColorAndLightingWithNoTextures,
+        BillBoardTextureAndColor,
     }
 }

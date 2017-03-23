@@ -92,15 +92,16 @@
     <Compile Include="RenderingEngine\Programs\SkeletonLightingColorAndTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingButNoColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingProgram.cs" />
-    <Compile Include="RenderingEngine\Renderers\ColorRenderer.cs" />
-    <Compile Include="RenderingEngine\Renderers\LightingAndColorRenderer.cs" />
-    <Compile Include="RenderingEngine\Renderers\LightingAndTextureRenderer.cs" />
-    <Compile Include="RenderingEngine\Renderers\LightingColorAndTextureRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\BillBoard\BillBoardTextureAndColorRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\Standard\ColorRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\Standard\LightingAndColorRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\Standard\LightingAndTextureRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\Standard\LightingColorAndTextureRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\Renderer.cs" />
-    <Compile Include="RenderingEngine\Renderers\SkeletonLightingAndColorRenderer.cs" />
-    <Compile Include="RenderingEngine\Renderers\SkeletonLightingColorAndTextureRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\Skeleton\SkeletonLightingAndColorRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\Skeleton\SkeletonLightingColorAndTextureRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\SkeletonRenderer.cs" />
-    <Compile Include="RenderingEngine\Renderers\TextureAndColorRenderer.cs" />
+    <Compile Include="RenderingEngine\Renderers\Standard\TextureAndColorRenderer.cs" />
     <Compile Include="RenderingEngine\Textures\TextureManager.cs" />
   </ItemGroup>
   <ItemGroup>

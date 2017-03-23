@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenGLEngine.RenderingEngine.Cameras;
 
-namespace OpenGLEngine.RenderingEngine.Renderers
+namespace OpenGLEngine.RenderingEngine.Renderers.Standard
 {
     public class LightingAndColorRenderer : Renderer
     {

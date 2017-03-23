@@ -2,6 +2,8 @@
 using OpenGLEngine.RenderingEngine;
 using OpenGLEngine.RenderingEngine.Enums;
 using OpenGLEngine.RenderingEngine.Renderers;
+using OpenGLEngine.RenderingEngine.Renderers.BillBoard;
+using OpenGLEngine.RenderingEngine.Renderers.Standard;
 using OpenGLEngine.RenderingEngine.Textures;
 using OpenTK;
 using OpenTK.Graphics.OpenGL4;
@@ -75,7 +77,7 @@ namespace OpenGLEngine.RenderedObjects
         private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine, string texturePath)
         {
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights || style == RenderingStyle.TextureColorAndLighting
-                || style == RenderingStyle.SimpleTextureWithColor)
+                || style == RenderingStyle.SimpleTextureWithColor || style == RenderingStyle.BillBoardTextureAndColor)
             {
                 if (texturePath == null)
                 {
@@ -94,10 +96,14 @@ namespace OpenGLEngine.RenderedObjects
                 {
                     renderer = new LightingColorAndTextureRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
                 }
-                else
+                else if(style == RenderingStyle.SimpleTextureWithColor)
                 {
                     renderer = new TextureAndColorRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
-                }              
+                }
+                else if (style == RenderingStyle.BillBoardTextureAndColor)
+                {
+                    renderer = new BillBoardTextureAndColorRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
+                }
             }
             else if (style == RenderingStyle.ColorAndLightingWithNoTextures)
             {
