@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OpenGLEngine.RenderingEngine.Renderers.Atlas
 {
-    class AtlasColorBillBoardRenderer : Renderer
+    class AtlasColorBillBoardRenderer : AtlasRenderer
     {
         int shapeData;
         int indiceData;
@@ -20,18 +20,25 @@ namespace OpenGLEngine.RenderingEngine.Renderers.Atlas
         Camera camera;
         Engine engine;
 
-        public AtlasColorBillBoardRenderer(int shapeData, int indiceData, int textureID, int triangleCount, Engine engine)
+        int rows, columns;
+        float textureIncrement;
+
+        public AtlasColorBillBoardRenderer(int shapeData, int indiceData, int textureID, int triangleCount, Engine engine, int frames)
         {
             this.shapeData = shapeData; this.textureID = textureID; this.indiceData = indiceData; this.triangleCount = triangleCount;
             this.camera = engine.camera; program = engine.programList.TextureAtlasWithColorProgram; this.engine = engine;
+
+            rows = (int)Math.Sqrt(frames);
+            columns = rows;
+            textureIncrement = 1f / (float)rows;
         }
 
-        public void Render()
+        public void Render(int frame)
         {
-            Render(Matrix4.Identity);
+            Render(Matrix4.Identity, frame);
         }
 
-        public void Render(Matrix4 modelMatrix)
+        public void Render(Matrix4 modelMatrix, int frame)
         {
             Matrix4 model = modelMatrix;
 
@@ -55,8 +62,15 @@ namespace OpenGLEngine.RenderingEngine.Renderers.Atlas
 
             GL.UniformMatrix4(program.MVPMatrixHandle, false, ref MVP);
 
-            GL.Uniform1(program.textureLowHandle, .66f);
-            GL.Uniform1(program.textureIncrementHandle, .33f);
+            int col = frame % rows;
+            float textureLowX = col * textureIncrement;
+            int row = frame / columns;
+            float textureLowY = row * textureIncrement;
+
+            GL.Uniform1(program.textureYLowHandle, textureLowY);
+            GL.Uniform1(program.textureYIncrementHandle, textureIncrement);
+            GL.Uniform1(program.textureXLowHandle, textureLowX);
+            GL.Uniform1(program.textureXIncrementHandle, textureIncrement);
             GLErrorHelper.CheckError();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);

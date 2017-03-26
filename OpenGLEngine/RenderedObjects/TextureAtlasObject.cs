@@ -21,16 +21,16 @@ namespace OpenGLEngine.RenderedObjects
         int textureID;
         public VertexList vertices;
         public int[] indices;
-        Renderer renderer;
-
-        public TextureAtlasObject(Engine engine, float[] color, Vector3 scale, RenderingStyle style, string filepath, string texturePath)
+        AtlasRenderer renderer;
+        
+        public TextureAtlasObject(Engine engine, float[] color, Vector3 scale, RenderingStyle style, string filepath, string texturePath, int frames)
         {
             string extension = Path.GetExtension(filepath);
             if (extension == ".ply")
             {
                 PlyFileParser objectData = new PlyFileParser(filepath, color, scale);
                 UpdateMesh(objectData.vertices, objectData.indices);
-                CreateRenderer(style, objectData, engine, texturePath);
+                CreateRenderer(style, objectData, engine, texturePath, frames);
             }
             else
             {
@@ -38,13 +38,13 @@ namespace OpenGLEngine.RenderedObjects
             }
         }
 
-        private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine, string texturePath)
+        private void CreateRenderer(RenderingStyle style, PlyFileParser objectData, Engine engine, string texturePath, int frames)
         { 
             textureID = engine.LoadTexture(texturePath);
 
             if (style == RenderingStyle.BillBoardTextureAndColor)
             {
-                renderer = new AtlasColorBillBoardRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine);
+                renderer = new AtlasColorBillBoardRenderer(shapeData, indiceData, textureID, objectData.indices.Length, engine, frames);
             }
             else
             {
@@ -54,12 +54,12 @@ namespace OpenGLEngine.RenderedObjects
 
         public void Render()
         {
-            renderer.Render();
+            renderer.Render(Matrix4.Identity, 0);
         }
 
-        public void Render(Matrix4 modelMatrix)
+        public void Render(Matrix4 modelMatrix, int frame)
         {
-            renderer.Render(modelMatrix);
+            renderer.Render(modelMatrix, frame);
         }
 
         public void UpdateMesh(VertexList vertexList, int[] indices)

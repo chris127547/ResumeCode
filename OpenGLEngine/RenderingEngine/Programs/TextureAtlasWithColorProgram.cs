@@ -14,8 +14,10 @@ namespace OpenGLEngine.RenderingEngine.Programs
         public int positionHandle;
         public int colorHandle;
         public int textureHandle;
-        public int textureLowHandle;
-        public int textureIncrementHandle;
+        public int textureYLowHandle;
+        public int textureYIncrementHandle;
+        public int textureXLowHandle;
+        public int textureXIncrementHandle;
 
         public TextureAtlasWithColorProgram()
         {
@@ -23,8 +25,10 @@ namespace OpenGLEngine.RenderingEngine.Programs
             int fragmentShader = ProgramCreatorHelper.CreateShader(ShaderType.FragmentShader, ShaderCodeDump.GetTextureAtlasWithColorFragmentShader());
             programHandle = ProgramCreatorHelper.CreateProgram(vertexShader, fragmentShader);
             MVPMatrixHandle = GL.GetUniformLocation(programHandle, "u_mvpmatrix");
-            textureLowHandle = GL.GetUniformLocation(programHandle, "u_texlow");
-            textureIncrementHandle = GL.GetUniformLocation(programHandle, "u_texincrement");            
+            textureYLowHandle = GL.GetUniformLocation(programHandle, "u_ytexlow");
+            textureYIncrementHandle = GL.GetUniformLocation(programHandle, "u_ytexincrement"); 
+            textureXLowHandle = GL.GetUniformLocation(programHandle, "u_xtexlow");
+            textureXIncrementHandle = GL.GetUniformLocation(programHandle, "u_xtexincrement");
             positionHandle = GL.GetAttribLocation(programHandle, "a_position");
             colorHandle = GL.GetAttribLocation(programHandle, "a_color");
             textureHandle = GL.GetAttribLocation(programHandle, "a_texcord");            

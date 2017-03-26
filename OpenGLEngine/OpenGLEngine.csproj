@@ -94,6 +94,7 @@
     <Compile Include="RenderingEngine\Programs\TextureAtlasWithColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingButNoColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingProgram.cs" />
+    <Compile Include="RenderingEngine\Renderers\AtlasRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\Atlas\AtlasColorBillBoardRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\BillBoard\BillBoardTextureAndColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\Standard\ColorRenderer.cs" />

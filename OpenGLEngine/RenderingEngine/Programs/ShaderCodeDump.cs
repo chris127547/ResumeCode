@@ -402,8 +402,10 @@ namespace OpenGLEngine.RenderingEngine.Programs
         {
             string vertexshader =
                   "uniform mat4 u_mvpmatrix;   \n"
-                + "uniform float u_texlow;  \n"
-                + "uniform float u_texincrement;  \n"
+                + "uniform float u_ytexlow;  \n"
+                + "uniform float u_ytexincrement;  \n"
+                + "uniform float u_xtexlow;  \n"
+                + "uniform float u_xtexincrement;  \n"
                 + "attribute vec4 a_position; \n"
                 + "attribute vec4 a_color; \n"
                 + "attribute vec2 a_texcord; \n"
@@ -415,7 +417,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + "varying vec2 v_texcord; \n"
                 + "void main(){ \n"
                 + "   v_color = a_color; \n"
-                + "   v_texcord = vec2((a_texcord[0] * u_texincrement) + u_texlow, (a_texcord[1] * u_texincrement) + u_texlow); \n"
+                + "   v_texcord = vec2((a_texcord[0] * u_xtexincrement) + u_xtexlow, (a_texcord[1] * u_ytexincrement) + u_ytexlow); \n"
                 + "   gl_Position = u_mvpmatrix*a_position; \n"
 
                 + "   gl_Position.z = 2.0*log(gl_Position.w*C + 1)/log(Far*C + 1) - 1; \n"
