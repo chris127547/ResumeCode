@@ -8,22 +8,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenGLEngine.RenderingEngine.Renderers.BillBoard
+namespace OpenGLEngine.RenderingEngine.Renderers.Atlas
 {
-    class BillBoardTextureAndColorRenderer : Renderer
+    class AtlasColorBillBoardRenderer : Renderer
     {
         int shapeData;
         int indiceData;
         int triangleCount;
         int textureID;
-        SimpleTextureProgram program;
+        TextureAtlasWithColorProgram program;
         Camera camera;
         Engine engine;
 
-        public BillBoardTextureAndColorRenderer(int shapeData, int indiceData, int textureID, int triangleCount, Engine engine)
+        public AtlasColorBillBoardRenderer(int shapeData, int indiceData, int textureID, int triangleCount, Engine engine)
         {
             this.shapeData = shapeData; this.textureID = textureID; this.indiceData = indiceData; this.triangleCount = triangleCount;
-            this.camera = engine.camera; program = engine.programList.SimpleTextureProgram; this.engine = engine;
+            this.camera = engine.camera; program = engine.programList.TextureAtlasWithColorProgram; this.engine = engine;
         }
 
         public void Render()
@@ -54,6 +54,9 @@ namespace OpenGLEngine.RenderingEngine.Renderers.BillBoard
             GL.BindTexture(TextureTarget.Texture2D, textureID);
 
             GL.UniformMatrix4(program.MVPMatrixHandle, false, ref MVP);
+
+            GL.Uniform1(program.textureLowHandle, .66f);
+            GL.Uniform1(program.textureIncrementHandle, .33f);
             GLErrorHelper.CheckError();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, shapeData);

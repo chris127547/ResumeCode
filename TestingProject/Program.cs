@@ -33,8 +33,9 @@ namespace TestingProject
 
             string modelPath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\textureZSquare.ply";
             string texturePath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\9707.jpg";
-            PlyFileObject f = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath);
-            engine.renderedObjects.Add(f);//Note model is on side you musst look down and move back to see it
+            //PlyFileObject f = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath);
+            TextureAtlasObject t = new TextureAtlasObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath);
+            engine.renderedObjects.Add(t);//Note model is on side you musst look down and move back to see it
             engine.Start();
         }
 

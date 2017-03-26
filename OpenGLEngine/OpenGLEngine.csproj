@@ -73,6 +73,7 @@
     <Compile Include="RenderedObjects\PlyFileObject.cs" />
     <Compile Include="RenderedObjects\RenderedObject.cs" />
     <Compile Include="RenderedObjects\Square.cs" />
+    <Compile Include="RenderedObjects\TextureAtlasObject.cs" />
     <Compile Include="RenderedObjects\TexturedBox.cs" />
     <Compile Include="RenderedObjects\TexturedBoxWithLighting.cs" />
     <Compile Include="RenderingEngine\Cameras\Camera.cs" />
@@ -90,8 +91,10 @@
     <Compile Include="RenderingEngine\Programs\SimpleTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\SkeletonColorWithLightingButNoTextureProgram.cs" />
     <Compile Include="RenderingEngine\Programs\SkeletonLightingColorAndTextureProgram.cs" />
+    <Compile Include="RenderingEngine\Programs\TextureAtlasWithColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingButNoColorProgram.cs" />
     <Compile Include="RenderingEngine\Programs\TextureWithLightingProgram.cs" />
+    <Compile Include="RenderingEngine\Renderers\Atlas\AtlasColorBillBoardRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\BillBoard\BillBoardTextureAndColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\Standard\ColorRenderer.cs" />
     <Compile Include="RenderingEngine\Renderers\Standard\LightingAndColorRenderer.cs" />

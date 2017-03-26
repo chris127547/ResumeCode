@@ -78,5 +78,15 @@ namespace OpenGLEngine.RenderingEngine
                 return skeletonLightingColorAndTextureProgram;
             }
         }
+
+        private TextureAtlasWithColorProgram textureAtlasWithColorProgram;
+        public TextureAtlasWithColorProgram TextureAtlasWithColorProgram
+        {
+            get
+            {
+                if (textureAtlasWithColorProgram == null) { textureAtlasWithColorProgram = new TextureAtlasWithColorProgram(); }
+                return textureAtlasWithColorProgram;
+            }
+        }
     }
 }
