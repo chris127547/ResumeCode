@@ -17,6 +17,9 @@ namespace OpenGLEngine.RenderedObjects
     public class ObjFileObject : RenderedObject
     {
         int shapeData;
+        public VertexList vertices;
+        public int[] indices;
+        
         List<Renderer> renderers = new List<Renderer>();
         List<int> textureIds = new List<int>();
         List<int> indiceDataSets = new List<int>();
@@ -34,6 +37,9 @@ namespace OpenGLEngine.RenderedObjects
         private void CreateObjFileObject(Engine engine, string filePath, Vector3 scale)
         {
             ObjFileParser objectData = new ObjFileParser(filePath, new float[] { 1, 1, 1, 1 }, scale);
+
+            this.vertices = objectData.vertices;
+            this.indices = CombineIndicesSets(objectData.materialIndices);
 
             float[] vertices = objectData.vertices.GetAvailableShapeData();
 
@@ -75,7 +81,7 @@ namespace OpenGLEngine.RenderedObjects
                 Renderer renderer = new LightingColorAndTextureRenderer(shapeData, indiceData, texId, indices.Length, engine);
                 renderers.Add(renderer);
             }
-        }
+        }        
 
         public void Render()
         {
@@ -118,6 +124,20 @@ namespace OpenGLEngine.RenderedObjects
             Bitmap bitmap = new Bitmap(1, 1);
             bitmap.SetPixel(0, 0, Color.FromArgb(255, 255, 255, 255));
             return engine.textureManager.LoadTexture(bitmap, "EmptyTexure");
+        }
+
+        private int[] CombineIndicesSets(List<Tuple<MtlFileParser.Material, int[]>> list)
+        {
+            List<int> indices = new List<int>();
+            foreach (Tuple<MtlFileParser.Material, int[]> set in list)
+            {
+                int[] ind = set.Item2;
+                for (int i = 0; i < ind.Length; i++)
+                {
+                    indices.Add(ind[i]);
+                }
+            }
+            return indices.ToArray();
         }
     }
 }
