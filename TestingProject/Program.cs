@@ -24,6 +24,31 @@ namespace TestingProject
         {
             //oldTest();
             //ScalingTest();
+            //TextureAtlasTest();
+            SkeletonRenderTest();
+        }
+
+        private static void SkeletonRenderTest()
+        {
+            engine = new Engine();
+            engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
+            light = new Light(new Vector3(-10, 0, 10));
+
+            
+            string fileToRender = "C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply";
+            PlyFileParser ply = new PlyFileParser(fileToRender, new float[] { 1, 1, 1, 1 }, new Vector3(1));
+            AddBoneData(ply.vertices);
+            //AddTextureData(ply.vertices);
+            //PlyFileObject plyObject = new PlyFileObject(engine, RenderingStyle.ColorAndLightingWithNoTextures, ply);
+            SkeletonTestObject testObject = new SkeletonTestObject(engine, ply);
+
+            engine.renderedObjects.Add(testObject);
+            engine.game.RenderFrame += MoveLight;
+            engine.Start();
+        }
+
+        private static void TextureAtlasTest()
+        {
             engine = new Engine();
             engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
 
@@ -32,10 +57,10 @@ namespace TestingProject
             engine.camera = camera;
 
             string modelPath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\textureZSquare.ply";
-            //string texturePath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\9707.jpg";
-            string texturePath = "C:\\Users\\Chris\\Documents\\Image bin\\explotexgen\\output\\explosion3.png";
+            string texturePath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\9707.jpg";
+            //string texturePath = "C:\\Users\\Chris\\Documents\\Image bin\\explotexgen\\output\\explosion3.png";
             //PlyFileObject f = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath);
-            TextureAtlasObject t = new TextureAtlasObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath, 16);
+            TextureAtlasObject t = new TextureAtlasObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath, 9);
             engine.renderedObjects.Add(t);//Note model is on side you musst look down and move back to see it
             engine.Start();
         }

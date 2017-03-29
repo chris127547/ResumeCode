@@ -42,6 +42,7 @@ namespace OpenGLEngine.RenderingEngine.Renderers.Skeleton
             GL.BindTexture(TextureTarget.Texture2D, textureID);
 
             GL.Uniform3(program.lightPositionHandle, ref engine.light.LightPosition);
+            GL.Uniform1(program.diffuseLightHandle, engine.light.Diffuse);
 
             GL.UniformMatrix4(program.modelMatrixHandle, false, ref model);
             GL.UniformMatrix4(program.MVPMatrixHandle, false, ref MVP);

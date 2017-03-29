@@ -10,6 +10,7 @@ namespace OpenGLEngine.RenderingEngine
     public class Light
     {
         public Vector3 LightPosition;
+        public float Diffuse = .3f;
 
         public Light(float posX, float posY, float posZ)
         {

@@ -14,6 +14,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
 
         public int MVPMatrixHandle;
         public int lightPositionHandle;
+        public int diffuseLightHandle;
         public int modelMatrixHandle;
         public int boneArrayHandle;
         public int normalArrayHandle;
@@ -34,6 +35,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
             MVPMatrixHandle = GL.GetUniformLocation(programHandle, "u_MVPMatrix");
             modelMatrixHandle = GL.GetUniformLocation(programHandle, "u_ModelMatrix");
             lightPositionHandle = GL.GetUniformLocation(programHandle, "u_LightPos");
+            diffuseLightHandle = GL.GetUniformLocation(programHandle, "u_DiffuseLight");
             boneArrayHandle = GL.GetUniformLocation(programHandle, "u_Bone");
             normalArrayHandle = GL.GetUniformLocation(programHandle, "u_NormalBone");
             normalModelMatrixHandle = GL.GetUniformLocation(programHandle, "u_NormalMatrix");

@@ -13,6 +13,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
 
         public int MVPMatrixHandle;
         public int lightPositionHandle;
+        public int diffuseLightHandle;
         public int modelMatrixHandle;
         public int normalModelMatrixHandle;
 
@@ -29,6 +30,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
             modelMatrixHandle = GL.GetUniformLocation(programHandle, "u_ModelMatrix");
             normalModelMatrixHandle = GL.GetUniformLocation(programHandle, "u_NormalMatrix");
             lightPositionHandle = GL.GetUniformLocation(programHandle, "u_LightPos");
+            diffuseLightHandle = GL.GetUniformLocation(programHandle, "u_DiffuseLight");
 
             positionHandle = GL.GetAttribLocation(programHandle, "a_position");
             textureHandle = GL.GetAttribLocation(programHandle, "a_texcord");

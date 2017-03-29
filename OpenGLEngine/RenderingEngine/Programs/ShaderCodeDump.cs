@@ -115,6 +115,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform sampler2D u_texture; \n"
                 + " uniform vec3 u_LightPos; \n"
+                + " uniform float u_DiffuseLight; \n"
 
                 + " varying vec4 v_position; \n"
                 + " varying vec4 v_color; \n"
@@ -129,7 +130,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
 
                 + "    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal)); \n"
-                + "    brightness = max(brightness, 0.3f); \n"
+                + "    brightness = max(brightness, u_DiffuseLight); \n"
                 + "    vec4 surfaceColor = texture2D(u_texture, v_texcord); \n"
                 + "    surfaceColor = surfaceColor * v_color; \n"
                 + "    gl_FragColor = vec4(brightness * surfaceColor.rgb, surfaceColor.a); \n"
@@ -173,6 +174,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform sampler2D u_texture; \n"
                 + " uniform vec3 u_LightPos; \n"
+                + " uniform float u_DiffuseLight; \n"
 
                 + " varying vec4 v_position; \n"
                 + " varying vec2 v_texcord; \n"
@@ -186,7 +188,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
 
                 + "    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal)); \n"
-                + "    brightness = max(brightness, 0.3f); \n"
+                + "    brightness = max(brightness, u_DiffuseLight); \n"
                 + "    vec4 surfaceColor = texture2D(u_texture, v_texcord); \n"
                 + "    gl_FragColor = vec4(brightness * surfaceColor.rgb, surfaceColor.a); \n"
                 + " }";
@@ -228,6 +230,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                   " uniform mat4 u_ModelMatrix; \n"
                 + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform vec3 u_LightPos; \n"
+                + " uniform float u_DiffuseLight; \n"
 
                 + " varying vec4 v_position; \n"
                 + " varying vec4 v_color; \n"
@@ -241,7 +244,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
 
                 + "    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal)); \n"
-                + "    brightness = max(brightness, 0.3f); \n"
+                + "    brightness = max(brightness, u_DiffuseLight); \n"
                 + "    gl_FragColor = vec4(brightness * v_color.rgb, v_color.a); \n"
                 + " }";
             return fragmentshader;
@@ -298,6 +301,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                   " uniform mat4 u_ModelMatrix; \n"
                 + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform vec3 u_LightPos; \n"
+                + " uniform float u_DiffuseLight; \n"
 
                 + " varying vec4 v_position; \n"
                 + " varying vec4 v_color; \n"
@@ -313,7 +317,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
 
                 + "    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal)); \n"
-                + "    brightness = max(brightness, 0.3f); \n"
+                + "    brightness = max(brightness, u_DiffuseLight); \n"
                 + "    gl_FragColor = vec4(brightness * v_color.rgb, v_color.a); \n"
                 + " }";
             return fragmentshader;
@@ -373,6 +377,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                   " uniform mat4 u_ModelMatrix; \n"
                 + " uniform mat3 u_NormalMatrix; \n"
                 + " uniform vec3 u_LightPos; \n"
+                + " uniform float u_DiffuseLight; \n"
                 + " uniform sampler2D u_texture; \n"
 
                 + " varying vec4 v_position; \n"
@@ -390,7 +395,7 @@ namespace OpenGLEngine.RenderingEngine.Programs
                 + "    vec3 surfaceToLight = u_LightPos - fragPosition; \n"
 
                 + "    float brightness = dot(normal, surfaceToLight) / (length(surfaceToLight) * length(normal)); \n"
-                + "    brightness = max(brightness, 0.3f); \n"
+                + "    brightness = max(brightness, u_DiffuseLight); \n"
                 + "    vec4 surfaceColor = texture2D(u_texture, v_texcord); \n"
                 + "    surfaceColor = surfaceColor * v_color; \n"
                 + "    gl_FragColor = vec4(brightness * surfaceColor.rgb, surfaceColor.a); \n"
