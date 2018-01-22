@@ -33,6 +33,12 @@ namespace OpenGLEngine.RenderingEngine
             CreateEngine(camera);
         }
 
+        public Engine(Camera camera, int windowWidth, int windowHeight)
+        {
+            CreateEngine(camera);
+            game.Width = windowWidth; game.Height = windowHeight;
+        }
+
         private void CreateEngine(Camera camera)
         {
             game = new GameWindow();
@@ -115,6 +121,5 @@ namespace OpenGLEngine.RenderingEngine
             }
             textureManager.ClearTextures();
         }
-
     }
 }
