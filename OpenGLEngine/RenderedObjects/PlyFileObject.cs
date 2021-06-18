@@ -57,11 +57,11 @@ namespace OpenGLEngine.RenderedObjects
             {
                 if (style == RenderingStyle.ColorAndLightingWithNoTextures)
                 {
-                    objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply", color, scale);
+                    objectData = new PlyFileParser(AssetPathGetter.GetAssetsPath() + "\\normalcube.ply", color, scale);
                 }
                 else
                 {
-                    objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\Chris Cube.ply", null, scale);
+                    objectData = new PlyFileParser(AssetPathGetter.GetAssetsPath() + "\\Chris Cube.ply", null, scale);
                 }
             }
             else
@@ -81,7 +81,7 @@ namespace OpenGLEngine.RenderedObjects
             {
                 if (texturePath == null)
                 {
-                    textureID = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
+                    textureID = engine.LoadTexture(AssetPathGetter.GetAssetsPath() + "\\brick.png");
                 }
                 else
                 {

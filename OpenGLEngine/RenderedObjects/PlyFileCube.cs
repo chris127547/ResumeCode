@@ -30,11 +30,11 @@ namespace OpenGLEngine.RenderedObjects
             PlyFileParser objectData;
             if (style == RenderingStyle.ColorAndLightingWithNoTextures)
             {
-                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply", color, new Vector3(1));
+                objectData = new PlyFileParser(AssetPathGetter.GetAssetsPath() + "\\normalcube.ply", color, new Vector3(1));
             }
             else
             {
-                objectData = new PlyFileParser("C:\\Users\\Chris\\Documents\\3D models\\texturedCube.ply", null, new Vector3(1));
+                objectData = new PlyFileParser(AssetPathGetter.GetAssetsPath() + "\\texturedCube.ply", null, new Vector3(1));
             }
 
             this.vertices = objectData.vertices;
@@ -52,7 +52,6 @@ namespace OpenGLEngine.RenderedObjects
 
             if (style == RenderingStyle.TextureAndLightingWithNoColorHighlights)
             {
-                //textureID = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Ball Mazer textures\\brick.png");
                 renderer = new LightingAndTextureRenderer(shapeData, indiceData, texture, objectData.indices.Length, engine);
             }
             else if (style == RenderingStyle.ColorAndLightingWithNoTextures)

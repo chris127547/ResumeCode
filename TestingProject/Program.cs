@@ -6,6 +6,7 @@ using OpenGLEngine.RenderingEngine.Enums;
 using OpenTK;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,18 +15,18 @@ namespace TestingProject
 {
     class Program
     {
-        //private static string fileToRender = "C:\\Users\\Chris\\Documents\\3D models\\Monster Parts\\Deer Parts\\Torso\\deertorso.ply";
-        private static string fileToRender = "C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply";
+        private static string fileToRender = OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\normalcube.ply";
 
         static Engine engine;
         static private Light light;
 
         static void Main(string[] args)
         {
-            //oldTest();
+            oldTest();
             //ScalingTest();
             //TextureAtlasTest();
-            SkeletonRenderTest();
+            //SkeletonRenderTest();
+            //ShipTest();
         }
 
         private static void SkeletonRenderTest()
@@ -35,7 +36,7 @@ namespace TestingProject
             light = new Light(new Vector3(-10, 0, 10));
 
             
-            string fileToRender = "C:\\Users\\Chris\\Documents\\3D models\\normalcube.ply";
+            string fileToRender = OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\normalcube.ply";
             PlyFileParser ply = new PlyFileParser(fileToRender, new float[] { 1, 1, 1, 1 }, new Vector3(1));
             AddBoneData(ply.vertices);
             //AddTextureData(ply.vertices);
@@ -46,7 +47,7 @@ namespace TestingProject
             engine.game.RenderFrame += MoveLight;
             engine.Start();
         }
-
+        //Note you must move backwards to see the texture.
         private static void TextureAtlasTest()
         {
             engine = new Engine();
@@ -56,15 +57,14 @@ namespace TestingProject
             camera.setPosition(Matrix4.LookAt(new Vector3(4000, 3000, 3000), new Vector3(0, 0, 0), new Vector3(0, 1, 0)));
             engine.camera = camera;
 
-            string modelPath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\textureZSquare.ply";
-            string texturePath = "C:\\Users\\Chris\\Documents\\3D models\\VRHoverRacer\\Actors\\9707.jpg";
-            //string texturePath = "C:\\Users\\Chris\\Documents\\Image bin\\explotexgen\\output\\explosion3.png";
-            //PlyFileObject f = new PlyFileObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath);
+            string modelPath = OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\textureZSquare.ply";
+            string texturePath = OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\9707.jpg";
             TextureAtlasObject t = new TextureAtlasObject(engine, new float[] { 1, 1, 1, 1 }, new Vector3(1), RenderingStyle.BillBoardTextureAndColor, modelPath, texturePath, 9);
-            engine.renderedObjects.Add(t);//Note model is on side you musst look down and move back to see it
+            engine.renderedObjects.Add(t);
             engine.Start();
         }
 
+        //Note that this test will start the camera very zoomed out but the cameras movement does not support this and will reset when you first move.
         private static void ScalingTest()
         {
             engine = new Engine();
@@ -105,10 +105,10 @@ namespace TestingProject
             //SkeletonTestObject testObject = new SkeletonTestObject(engine, ply);
 
             //engine.renderedObjects.Add(testObject);
-            int bread = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Textures\\bread.jpg");
-            int sand = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Textures\\beach_sand.jpg");
-            int concrete = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Textures\\concrete.jpg");
-            bread = engine.LoadTexture("C:\\Users\\Chris\\Documents\\Image bin\\Textures\\bread.jpg");
+            int bread = engine.LoadTexture(OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\bread.jpg");
+            int sand = engine.LoadTexture(OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\beach_sand.jpg");
+            int concrete = engine.LoadTexture(OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\concrete.jpg");
+            bread = engine.LoadTexture(OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\bread.jpg");
 
             engine.renderedObjects.Add(new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights, bread));
             PlyFileCube cube = new PlyFileCube(engine, null, RenderingStyle.TextureAndLightingWithNoColorHighlights, concrete);
@@ -122,21 +122,13 @@ namespace TestingProject
 
         private static void ShipTest()
         {
-            string materialPath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\Shuttle_Rayder_Sydonia.mtl";
+            string materialPath = OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\Shuttle\\Shuttle_Rayder_Sydonia.mtl";
 
-            //MtlFileParser mtlParser = new MtlFileParser(materialPath);
-
-            //string shuttlePath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\Shuttle Rayder Sydonia.obj";
-            string shuttlePath = "C:\\Users\\Chris\\Documents\\3D models\\Downloaded\\js18ym62b5-ShuttleRayderSidonia\\Shuttle Rayder Sydonia\\scaledShuttle.obj";
-            string testobj = "C:\\Users\\Chris\\Documents\\3D models\\testcube.obj";
+            string shuttlePath = OpenGLEngine.AssetPathGetter.GetAssetsPath() + "\\Shuttle\\scaledShuttle.obj";
             ObjFileParser parser = new ObjFileParser(shuttlePath, new float[] { 1, 1, 1, 1 }, new Vector3(1));
-            //Console.ReadKey();
             engine = new Engine();
             engine.clearColor = new float[] { 0.4f, 0.7f, 1f, 1 };
             light = new Light(new Vector3(-10, 0, 10));
-            //GenericRenderedObject obj = new GenericRenderedObject(engine, new float[] { 1, 1, 1, 1 }, parser.vertices, parser.indices, RenderingStyle.ColorAndLightingWithNoTextures);
-            //int texId = engine.textureManager.LoadTexture(parser.material.textureAtlas, "test");
-            //GenericRenderedObject obj = new GenericRenderedObject(engine, new float[] { 1, 1, 1, 1 }, parser.vertices, parser.indices, texId, RenderingStyle.TextureColorAndLighting);
             ObjFileObject obj = new ObjFileObject(engine, shuttlePath);
             engine.renderedObjects.Add(obj);
             engine.game.RenderFrame += MoveLight;

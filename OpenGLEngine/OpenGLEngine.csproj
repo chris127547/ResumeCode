@@ -59,6 +59,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetPathGetter.cs" />
     <Compile Include="RenderedObjects\BoxShape.cs" />
     <Compile Include="RenderedObjects\DrawingTestShape.cs" />
     <Compile Include="RenderedObjects\FileToObjectConverters\MtlFileParser.cs" />
